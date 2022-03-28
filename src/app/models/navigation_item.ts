@@ -4,6 +4,6 @@ export interface NavigationItem {
   url?: string;
   dataUrl?: string;
   isProtected?: boolean;
-  isHiddenWhenLoggedIn?: boolean;
+  visibleWhenloggedIn?: boolean;
   items?: NavigationItem[];
 }

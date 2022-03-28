@@ -4,8 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'NewsPage/0',
+    redirectTo: 'NewsPage',
     pathMatch: 'full'
+  },
+  {
+    path: 'NewsPage',
+    loadChildren: () => import('./pages/news/news.module').then( m => m.NewsPageModule)
   },
   {
     path: 'NewsPage/:index',
@@ -24,12 +28,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sponsor/sponsor.module').then( m => m.SponsorPageModule)
   },
   {
+    path: 'intro',
+    loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
+  },
+  {
     path: 'intro/:index',
     loadChildren: () => import('./pages/intro/intro.module').then( m => m.IntroPageModule)
   },
   {
     path: 'TimetablePage/:index',
     loadChildren: () => import('./pages/timetable/timetable.module').then( m => m.TimetablePageModule)
+  },
+  {
+    path: 'VisitorPage/:index',
+    loadChildren: () => import('./pages/visitor/visitor.module').then( m => m.VisitorPageModule)
   }
 ];
 

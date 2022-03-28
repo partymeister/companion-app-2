@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "./services/navigation.service";
 import {NavigationItem} from "./models/navigation_item";
 import {MenuController} from "@ionic/angular";
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,11 @@ export class AppComponent {
   public childrenOpenState: any = {};
 
   private menuController: MenuController;
+  public authenticationService: AuthenticationService;
 
-  constructor(navigationService: NavigationService, menuController: MenuController) {
+  constructor(navigationService: NavigationService, menuController: MenuController, authenticationService: AuthenticationService) {
     this.menuController = menuController;
+    this.authenticationService = authenticationService
     navigationService.getNavigation()
       .subscribe((data: NavigationItem) => {
         this.navigationItems = [...data['data'].items];
@@ -29,6 +32,24 @@ export class AppComponent {
         console.log(this.navigationItems);
       });
 
+  }
+
+  public showItem(navigationItem) {
+
+    if (navigationItem.isProtected === undefined) {
+      return true;
+    }
+
+    if (navigationItem.isProtected) {
+      if ((this.authenticationService.isAuthenticated() && navigationItem.visibleWhenloggedIn)) {
+        return true;
+      }
+      if (!this.authenticationService.isAuthenticated() && !navigationItem.visibleWhenloggedIn) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public toggleChildren(index) {

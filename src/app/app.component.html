@@ -21,10 +21,12 @@
 
             <ng-template [ngIf]="p.items && p.items.length > 0">
               <div [class]="hideMenu[i] ? 'ion-hide' : ''">
-                <ion-item *ngFor="let s of p.items; let si = index" class="second-level" routerDirection="root" [routerLink]="[s.url, si]" [queryParams]="{ dataUrl: s.dataUrl }" lines="none" detail="false"
-                          routerLinkActive="selected" (click)="closeMenu()">
-                  <ion-label>{{ s.title }}</ion-label>
-                </ion-item>
+                <div *ngFor="let s of p.items; let si = index">
+                  <ion-item *ngIf="showItem(s)" class="second-level" routerDirection="root" [routerLink]="[s.url, si]" [queryParams]="{ dataUrl: s.dataUrl }" lines="none" detail="false"
+                            routerLinkActive="selected" (click)="closeMenu()">
+                    <ion-label>{{ s.title }}</ion-label>
+                  </ion-item>
+                </div>
               </div>
             </ng-template>
 

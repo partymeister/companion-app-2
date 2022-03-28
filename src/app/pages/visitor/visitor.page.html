@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Who's here</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar placeholder="Search..." (ionInput)="filterVisitors($event)" animated="true"></ion-searchbar>
+  <div>
+    <ng-template [ngIf]="visitorItems">
+      <h4>{{visitorItems.length}} people have signed up!</h4>
+      <ul>
+        <li *ngFor="let visitor of filteredVisitorItems">
+          <i class="fi fi-{{visitor.country_iso_3166_1 | lowercase}}"></i> {{visitor.name}} <span
+          *ngIf="visitor.group !== ''"> / {{visitor.group}}</span>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+
+</ion-content>
