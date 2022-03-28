@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sponsors</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngFor="let item of sponsorItem.sponsors; let i = index" color="light">
+    <img [src]="item.image"/>
+    <ion-card-header>
+      <ion-card-subtitle>{{ item.level }}</ion-card-subtitle>
+      <ion-card-title>{{item.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div [innerHTML]="item.content"></div>
+    </ion-card-content>
+
+    <ion-item lines="none" *ngIf="item.link" (click)="openUrl(item.link)" color="light">
+      <ion-label slot="start">
+        Website
+      </ion-label>
+      <ion-icon name="globe-outline" slot="end"></ion-icon>
+    </ion-item>
+
+  </ion-card>
+
+  <div>
+    <h1>{{ sponsorItem.outro_headline}}</h1>
+    <div [innerHTML]="sponsorItem.outro"></div>
+  </div>
+
+</ion-content>

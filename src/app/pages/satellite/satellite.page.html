@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Satellites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div [innerHTML]="satelliteItem.intro"></div>
+    <h1>Confirmed satellites</h1>
+  </div>
+  <ion-card *ngFor="let item of satelliteItem.satellites; let i = index" color="light">
+    <img [src]="item.image"/>
+    <ion-card-header>
+      <ion-card-subtitle>{{ item.country }}</ion-card-subtitle>
+      <ion-card-title>{{item.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div [innerHTML]="item.content"></div>
+    </ion-card-content>
+
+    <ion-item lines="none" color="light">
+      <ion-label>
+        {{ item.address_1 }}<br>
+        {{ item.address_2 }}<br>
+        {{ item.address_3 }}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none" color="light">
+      <ion-label slot="start">Entrance fee</ion-label>
+      <ion-label slot="end" class="ion-text-wrap">{{ item.entrance }}</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" color="light">
+      <ion-label slot="start">Visitors</ion-label>
+      <ion-label slot="end" class="ion-text-wrap">{{ item.visitors }}</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" *ngIf="item.link" (click)="openUrl(item.link)" color="light">
+      <ion-label slot="start">
+        Website
+      </ion-label>
+      <ion-icon name="globe-outline" slot="end"></ion-icon>
+    </ion-item>
+
+    <a href="mailto:{{item.contact_email}}">
+      <ion-item lines="none" color="light">
+      <ion-label slot="start">
+          Contact
+      </ion-label>
+      <ion-icon name="mail-outline" slot="end"></ion-icon>
+    </ion-item>
+    </a>
+
+  </ion-card>
+  <div>
+    <h1>{{ satelliteItem.outro_headline}}</h1>
+    <div [innerHTML]="satelliteItem.outro"></div>
+  </div>
+</ion-content>

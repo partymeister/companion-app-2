@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let item of newsItems; let i = index">
+    <ion-card>
+      <img [src]="item.image" />
+      <ion-card-header>
+        <ion-card-subtitle>{{ item.date | date: 'MMM d, y'}}</ion-card-subtitle>
+        <ion-card-title>{{item.title}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <div class="custom" [innerHTML]="item.content"></div>
+  </div>
+</ion-content>

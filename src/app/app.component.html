@@ -3,25 +3,35 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-img class="logo" src="assets/images/logo.png"></ion-img>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+          <div *ngFor="let p of navigationItems; let i = index">
+
+            <ion-item *ngIf="p.url" routerDirection="root" [routerLink]="[p.url, i]" [queryParams]="{ dataUrl: p.dataUrl }" lines="none" detail="false"
+                      routerLinkActive="selected" (click)="closeMenu()">
+              <ion-icon slot="start" [ios]="p.icon" [md]="p.icon"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
-          </ion-menu-toggle>
+
+
+            <ion-item *ngIf="!p.url" (click)="toggleChildren(i)" lines="none">
+              <ion-icon slot="start" [ios]="p.icon" [md]="p.icon"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+
+            <ng-template [ngIf]="p.items && p.items.length > 0">
+              <div [class]="hideMenu[i] ? 'ion-hide' : ''">
+                <ion-item *ngFor="let s of p.items; let si = index" class="second-level" routerDirection="root" [routerLink]="[s.url, si]" [queryParams]="{ dataUrl: s.dataUrl }" lines="none" detail="false"
+                          routerLinkActive="selected" (click)="closeMenu()">
+                  <ion-label>{{ s.title }}</ion-label>
+                </ion-item>
+              </div>
+            </ng-template>
+
+
+          </div>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
