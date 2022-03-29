@@ -28,6 +28,7 @@
     "@ionic/angular": "^6.0.0",
     "flag-icons": "^6.1.1",
     "rxjs": "~6.6.0",
+    "sprintf-js": "^1.1.2",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },

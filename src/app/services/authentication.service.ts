@@ -27,8 +27,8 @@ export class AuthenticationService {
     });
   }
 
-  uniqid() {
-    return this.user.uniqid;
+  apiToken() {
+    return this.user.api_token;
   }
 
   isAuthenticated() {

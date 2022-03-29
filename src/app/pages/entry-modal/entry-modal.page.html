@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        Close
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Entry Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>{{entry.title}} by {{entry.author}}</ion-label>
+    </ion-list-header>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        Competition
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.competition_name}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        ID
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.id}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        Title
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.title}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        Author
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.author}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="entry.running_time !== ''" lines="none">
+      <ion-label slot="start">
+        Running time
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.running_time}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="entry.platform !== ''" lines="none">
+      <ion-label slot="start">
+        Platform
+      </ion-label>
+      <ion-label slot="end">
+        {{entry.platform}}
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header *ngIf="entry.description">
+      <ion-label>Description</ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="entry.description" lines="none">
+      <ion-label class="ion-text-wrap">
+        {{entry.description}}
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header *ngIf="entry.description">
+      <ion-label>Message to the organizers</ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="entry.organizer_description" lines="none">
+      <ion-label class="ion-text-wrap">
+        {{entry.organizer_description}}
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header *ngIf="entry.options.length > 0 || entry.custom_option !== ''">
+      <ion-label>Competition options</ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="entry.options.length > 0 || entry.custom_option !== ''" lines="none">
+      <ion-label>
+        <ul>
+          <li *ngIf="entry.custom_option !== ''">{{ entry.custom_option }}</li>
+          <li *ngFor="let option of entry.options">{{option.name}}</li>
+        </ul>
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Uploader information</ion-label>
+    </ion-list-header>
+    <ion-item lines="none">
+      <ion-label class="ion-text-wrap">
+        {{entry.author_name}}<br>
+        {{entry.author_address}}<br>
+        {{entry.author_zip}} {{entry.author_city}}, {{entry.author_country_iso_3166_1}}<br>
+        {{entry.author_email}}<br>
+        {{entry.author_phone}}
+      </ion-label>
+    </ion-item>
+
+    <ion-list-header *ngIf="entry.has_composer">
+      <ion-label>Composer information</ion-label>
+    </ion-list-header>
+    <ion-item *ngIf="entry.has_composer" lines="none">
+      <ion-label class="ion-text-wrap">
+        {{entry.composer_name}}<br>
+        {{entry.composer_address}}<br>
+        {{entry.composer_zip}} {{entry.composer_city}}, {{entry.composer_country_iso_3166_1}}<br>
+        {{entry.composer_email}}<br>
+        {{entry.composer_phone}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

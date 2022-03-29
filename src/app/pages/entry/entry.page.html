@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Entry</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My entries</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div>
+    <h5 *ngIf="entryItems.length === 0">You haven't uploaded any entries yet. Log in with your browser on a desktop computer to upload your entries.</h5>
+  </div>
+  <ion-card *ngFor="let entry of entryItems">
+    <img *ngIf="entry.has_screenshot && entry.screenshot" [src]="entry.screenshot.url"/>
+    <ion-card-content>
+      <ion-card-title>
+        {{entry.title}}
+      </ion-card-title>
+      <p>
+        {{entry.author}}
+      </p>
+      <hr>
+      <p>
+        Competition: {{entry.competition_name}}
+      </p>
+      <p>
+        Entry-ID: {{entry.id}}
+      </p>
+      <hr>
+      <ion-button expand="block" (click)="presentDetailModal(entry)">Details</ion-button>
+    </ion-card-content>
 
+  </ion-card>
 </ion-content>

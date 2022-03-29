@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: 'EntryPage/:index',
     loadChildren: () => import('./pages/entry/entry.module').then( m => m.EntryPageModule)
+  },
+  {
+    path: 'entry-modal',
+    loadChildren: () => import('./pages/entry-modal/entry-modal.module').then( m => m.EntryModalPageModule)
   }
 ];
 
