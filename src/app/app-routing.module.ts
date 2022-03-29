@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'LogoutPage/:index',
     loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
+  },
+  {
+    path: 'EntryPage/:index',
+    loadChildren: () => import('./pages/entry/entry.module').then( m => m.EntryPageModule)
   }
 ];
 

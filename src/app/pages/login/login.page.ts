@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CountryService} from "../../services/country.service";
-import {AuthenticationService} from "../../services/authentication.service";
-import {AlertController, MenuController} from "@ionic/angular";
-import {ContentItem} from "../../models/content_item";
-import {ActivatedRoute} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CountryService} from '../../services/country.service';
+import {AuthenticationService} from '../../services/authentication.service';
+import {AlertController, MenuController} from '@ionic/angular';
+import {ContentItem} from '../../models/content_item';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,8 @@ export class LoginPage implements OnInit {
     private authenticationService: AuthenticationService,
     private menuController: MenuController,
     private alertController: AlertController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
 
     this.countries = countryService.getCountries();
@@ -37,12 +38,16 @@ export class LoginPage implements OnInit {
     });
 
     this.registrationForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       group: [''],
-      country_iso_3166_1: ['', Validators.required],
-      access_key: ['', Validators.required],
+      country_iso_3166_1: ['DE', Validators.required],
+      access_key: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       password: ['', Validators.required],
-      password_repeat: ['', Validators.required]
+      password_repeat: ['', Validators.compose([Validators.required, Validators.minLength(3)])]
+    }, {validator: LoginPage.matchPasswords});
+
+    this.registrationForm.valueChanges.subscribe(data => {
+      this.registrationForm.patchValue({access_key: data.access_key.toUpperCase()}, {onlySelf: true, emitEvent: false});
     });
 
     activatedRoute.queryParams.subscribe(params => {
@@ -51,8 +56,19 @@ export class LoginPage implements OnInit {
 
   }
 
+  static matchPasswords(cg: FormGroup): {[err: string]: any} {
+    const pwd1 = cg.get('password');
+    const pwd2 = cg.get('password_repeat');
+    const rv: {[error: string]: any} = {};
+    if ((pwd1.touched || pwd2.touched) && pwd1.value !== pwd2.value) {
+      rv.passwordMismatch = true;
+    }
+
+    return rv;
+  }
+
   openCamera(event) {
-    console.log("Clicked on open camera");
+    console.log('Clicked on open camera');
   }
 
   submitLogin() {
@@ -61,16 +77,18 @@ export class LoginPage implements OnInit {
           this.authenticationService.doLogin(result['data']).then(res => {
 
             // redirect to start page
-            this.menuController.open();
+            this.router.navigate(['/NewsPage'], {replaceUrl: true}).then(() => {
+              this.menuController.open();
+            });
           });
         },
         err => {
-          this.presentAlert();
+          this.presentLoginAlert();
         }
       );
   }
 
-  async presentAlert() {
+  async presentLoginAlert() {
     const alert = await this.alertController.create({
       header: 'Login unsuccessful :(',
       message: 'There was a problem with your login credentials. Are you registered yet?',
@@ -79,8 +97,31 @@ export class LoginPage implements OnInit {
     await alert.present();
   }
 
+  async presentRegistrationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Registration unsuccessful :(',
+      message: 'Looks like this access key or this handle was already used before',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
   submitRegistration() {
-    console.log("Clicked on submit registration");
+    console.log('Clicked on submit registration');
+    this.authenticationService.registrationRequest(this.baseUrl, this.registrationForm.value)
+      .subscribe(result => {
+          this.authenticationService.doLogin(result['data']).then(res => {
+
+            // redirect to start page
+            this.router.navigate(['/NewsPage'], {replaceUrl: true}).then(() => {
+              this.menuController.open();
+            });
+          });
+        },
+        err => {
+          this.presentRegistrationAlert();
+        }
+      );
   }
 
   ngOnInit() {

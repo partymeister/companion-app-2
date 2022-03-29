@@ -38,7 +38,7 @@ export class AuthenticationService {
   async doLogin(user) {
     this.user = user as User;
     console.log(user);
-        await this.storageService.set('user', user);
+    await this.storageService.set('user', user);
     this.authenticated = true;
 
     console.log(this.authenticated);
@@ -58,27 +58,12 @@ export class AuthenticationService {
     const bodyString = JSON.stringify(data); // Stringify payload
 
     return this.http.post(url + 'login', bodyString, httpOptions).pipe(map(res => res));
-
-    // return Observable.fromPromise(this.storageService.get('local-api-base-url').then(res => {
-    //   return res;
-    // })).flatMap(res => {
-    //   return this.http.post(res + SettingsProvider.variables.LOGIN_API, bodyString, httpOptions)
-    //     .map(res => {
-    //       return res;
-    //     });
-    // });
-
   }
 
-  registrationRequest(data) {
+  registrationRequest(url, data) {
     const bodyString = JSON.stringify(data); // Stringify payload
 
-    // return Observable.fromPromise(this.storageService.get('local-api-base-url').then(res => {
-    //   return res;
-    // })).flatMap(res => {
-    //   return this.http.post(res + SettingsProvider.variables.REGISTRATION_API, bodyString, httpOptions).map(res => {
-    //     return res;
-    //   });
-    // });
+    return this.http.post(url + 'register', bodyString, httpOptions).pipe(map(res => res));
   }
+
 }
