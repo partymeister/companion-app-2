@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login / Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <h1>Login</h1>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <ion-item lines="none">
+      <ion-label>Handle</ion-label>
+      <ion-input type="text" formControlName="name" autocapitalize=none></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Log in</ion-button>
+    <div *ngIf="error" class="">Login unsuccessful</div>
+  </form>
+
+  <div>
+    <h5 style="text-align: center;">Not registered yet? Look below!</h5>
+    <h1>Register</h1>
+  </div>
+  <form [formGroup]="registrationForm" (ngSubmit)="submitRegistration()">
+    <ion-item lines="none">
+      <ion-label>Handle</ion-label>
+      <ion-input type="text" formControlName="name" autocapitalize=none></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Group</ion-label>
+      <ion-input type="text" formControlName="group" autocapitalize=none></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Country</ion-label>
+      <ion-select formControlName="country_iso_3166_1">
+        <ion-select-option *ngFor="let c of countries" [value]="c.code">{{ c.value }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button type="button" (click)="openCamera($event)" color="light" slot="end"><ion-icon name="camera"></ion-icon></ion-button>
+      <ion-label>Access Key</ion-label>
+      <ion-input type="text" formControlName="access_key"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Repeat</ion-label>
+      <ion-input type="password" formControlName="password_repeat"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!registrationForm.valid">Register</ion-button>
+  </form>
+
+</ion-content>

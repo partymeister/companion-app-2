@@ -42,6 +42,14 @@ const routes: Routes = [
   {
     path: 'VisitorPage/:index',
     loadChildren: () => import('./pages/visitor/visitor.module').then( m => m.VisitorPageModule)
+  },
+  {
+    path: 'LoginPage/:index',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'LogoutPage/:index',
+    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
   }
 ];
 

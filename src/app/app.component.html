@@ -5,6 +5,12 @@
         <ion-list id="inbox-list">
           <ion-img class="logo" src="assets/images/logo.png"></ion-img>
 
+          <div *ngIf="authenticationService.isAuthenticated()">
+            <ion-item lines="none">
+              <ion-label>Welcome {{ authenticationService.user.name }}</ion-label>
+            </ion-item>
+          </div>
+
           <div *ngFor="let p of navigationItems; let i = index">
 
             <ion-item *ngIf="p.url" routerDirection="root" [routerLink]="[p.url, i]" [queryParams]="{ dataUrl: p.dataUrl }" lines="none" detail="false"
