@@ -58,6 +58,22 @@ const routes: Routes = [
   {
     path: 'entry-modal',
     loadChildren: () => import('./pages/entry-modal/entry-modal.module').then( m => m.EntryModalPageModule)
+  },
+  {
+    path: 'LiveVotePage/:index',
+    loadChildren: () => import('./pages/live-vote/live-vote.module').then( m => m.LiveVotePageModule)
+  },
+  {
+    path: 'VotePage/:index',
+    loadChildren: () => import('./pages/vote/vote.module').then( m => m.VotePageModule)
+  },
+  {
+    path: 'MusicPage/:index',
+    loadChildren: () => import('./pages/music/music.module').then( m => m.MusicPageModule)
+  },
+  {
+    path: 'SeminarPage/:index',
+    loadChildren: () => import('./pages/seminar/seminar.module').then( m => m.SeminarPageModule)
   }
 ];
 

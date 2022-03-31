@@ -6,14 +6,15 @@ import {sprintf} from 'sprintf-js';
 @Injectable({
   providedIn: 'root'
 })
-export class EntryService {
+export class VoteService {
 
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  getData(url: string, apiToken: string) {
-    return this.http.get<EntryItem>(sprintf(url, apiToken));
+  getEntries(url: string, apiToken: string) {
+    return this.http.get<EntryItem>(sprintf(url + 'entries', apiToken));
   }
+
 }

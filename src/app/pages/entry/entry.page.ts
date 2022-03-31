@@ -27,15 +27,7 @@ export class EntryPage implements OnInit {
     this.entryItems = [];
 
     activatedRoute.queryParams.subscribe(params => {
-      let url = '';
-
-      if (params.dataUrl === undefined) {
-        url = 'https://2022.revision-party.net/blog/index.json';
-      } else {
-        url = params.dataUrl;
-      }
-
-      entryService.getData(url, this.authenticationService.apiToken())
+      entryService.getData(params.dataUrl, this.authenticationService.apiToken())
         .subscribe((data: EntryItem) => {
           this.entryItems = [...data['data']];
           console.log(this.entryItems);

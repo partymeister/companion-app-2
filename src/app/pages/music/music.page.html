@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Music events</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="musicItem.intro !== ''">
+    <div [innerHTML]="musicItem.intro"></div>
+  </div>
+
+  <ion-card *ngFor="let item of musicItem.artists; let i = index" color="light">
+    <img [src]="item.image"/>
+    <ion-card-header>
+      <ion-card-title>{{item.title}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div [innerHTML]="item.content"></div>
+    </ion-card-content>
+
+  </ion-card>
+
+
+</ion-content>
