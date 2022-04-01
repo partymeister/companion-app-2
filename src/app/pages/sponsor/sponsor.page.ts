@@ -17,6 +17,8 @@ export class SponsorPage implements OnInit {
     this.sponsorItem = {
       outro: '',
       outro_headline: '',
+      supporter_headline: '',
+      supporters: '',
       sponsors: []
     };
 

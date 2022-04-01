@@ -9,5 +9,7 @@ export interface Sponsor {
 export interface SponsorItem {
   outro_headline: string;
   outro: string;
+  supporter_headline: string;
+  supporters: string;
   sponsors: Sponsor[];
 }

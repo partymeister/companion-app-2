@@ -31,6 +31,11 @@
   </ion-card>
 
   <div>
+    <h1>{{ sponsorItem.supporter_headline}}</h1>
+    <div [innerHTML]="sponsorItem.supporters"></div>
+  </div>
+
+  <div>
     <h1>{{ sponsorItem.outro_headline}}</h1>
     <div [innerHTML]="sponsorItem.outro"></div>
   </div>
