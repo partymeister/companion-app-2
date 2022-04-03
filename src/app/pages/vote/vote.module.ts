@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { VotePageRoutingModule } from './vote-routing.module';
 
 import { VotePage } from './vote.page';
+import { IonicRatingComponentModule } from 'ionic-rating-component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VotePageRoutingModule
+    VotePageRoutingModule,
+    IonicRatingComponentModule
   ],
   declarations: [VotePage]
 })

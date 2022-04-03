@@ -34,3 +34,12 @@ ion-title {
 }
 
 @import "flag-icons/css/flag-icons.min.css";
+
+ion-toast.toast-success {
+  --background: #138788;
+}
+
+ion-toast.toast-danger {
+  --background: #eb445a;
+  --color: black;
+}

@@ -1,9 +1,69 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Vote</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Voting</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item *ngIf="competition_id !== null">
+    <ion-label>Competition</ion-label>
+    <ion-select [(ngModel)]="competition_id">
+      <ion-select-option *ngFor="let key of competition_keys" [value]="competitions[key].id">
+        {{competitions[key].name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="basic-wrapper">
+    <h5 padding *ngIf="competition_id === null">No competitions to vote for at the moment
+      :(</h5>
+  </div>
+
+  <div *ngIf="competition_id !== null && competitions[competition_id]">
+    <ion-card class="deadline" *ngIf="competitions[competition_id].entries[0]?.deadline_reached">
+      <ion-card-content>
+        <strong>The voting deadline is over!</strong>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngFor="let entry of competitions[competition_id].entries">
+      <img *ngIf="entry.screenshot?.url" [src]="entry.screenshot.url">
+      <ion-card-content [ngClass]="{'favourite' : entry.favourite}">
+        <audio *ngIf="entry.has_audio && entry.audio.url" controls>
+          <source [src]="entry.audio.url" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+        <ion-card-title>
+          <ion-badge style="float:right">#{{entry.sort_position_prefixed}}</ion-badge>
+          {{entry.title}}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{entry.author}}
+        </ion-card-subtitle>
+        <ionic-rating-component #rating
+                                activeIcon = "star"
+                                defaultIcon = "star-outline"
+                                activeColor = "#FFA500"
+                                defaultColor = "#FFA500"
+                                readonly="{{deadlineReached}}"
+                                [rating]="entry.rating"
+                                fontSize = "32px"
+                                (ratingChanged)="onModelChange($event, entry)">
+        </ionic-rating-component>
+
+        <ion-item lines="none">
+          <p item-start></p>
+          <ion-input placeholder="Leave comment" type="text" [disabled]="deadlineReached" [(ngModel)]="entry.comment"></ion-input>
+          <ion-button slot="end" (click)="onCommentSend(entry)">Send</ion-button>
+        </ion-item>
+        <ion-button *ngIf="!entry.favourite" (click)="onFavouriteSend(entry, true)" expand="block">&hearts; My party favourite &hearts;</ion-button>
+        <ion-button *ngIf="entry.favourite" (click)="onFavouriteSend(entry, false)" expand="block">&#x2639; Not my favourite anymore &#x2639;</ion-button>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
 
 </ion-content>

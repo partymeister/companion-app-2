@@ -10,22 +10,30 @@
 
 <ion-content>
 
-  <div *ngFor="let day of timetableDays; let i = index">
-    <h1>{{ day.day }}</h1>
+  <div>
+    <p>
+      All times are displayed in your local time: {{getTimezone()}}
+    </p>
 
-    <table class="events">
-      <tr *ngFor="let event of day.events; let eventIndex = index">
-        <td width="50"><span *ngIf="eventIndex === 0 || event.start !== day.events[eventIndex-1].start">{{event.start | date: 'HH:mm'}}</span></td>
-        <td width="100" style="padding-bottom: 5px;">
-          <ion-badge style="background-color: {{ event.backgroundColor }}; margin-right: 10px;">
-            {{event.category}}
-          </ion-badge>
-        </td>
-        <td style="padding-bottom: 10px;" [innerHTML]="lineBreaks(event.title)">
-        </td>
-      </tr>
-    </table>
+    <div *ngFor="let day of timetableDays; let i = index">
 
+      <h1>{{ day.day }}</h1>
+
+      <table class="events">
+        <tr *ngFor="let event of day.events; let eventIndex = index">
+          <td width="50"><span
+            *ngIf="eventIndex === 0 || event.start !== day.events[eventIndex-1].start">{{event.start | date: 'HH:mm'}}</span>
+          </td>
+          <td width="100" style="padding-bottom: 5px;">
+            <ion-badge style="background-color: {{ event.backgroundColor }}; margin-right: 10px;">
+              {{event.category}}
+            </ion-badge>
+          </td>
+          <td style="padding-bottom: 10px;" [innerHTML]="lineBreaks(event.title)">
+          </td>
+        </tr>
+      </table>
+
+    </div>
   </div>
-
 </ion-content>

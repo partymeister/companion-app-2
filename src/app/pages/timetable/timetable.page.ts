@@ -32,6 +32,10 @@ export class TimetablePage implements OnInit {
 
   }
 
+  getTimezone() {
+    return new Date().toString().substr(new Date().toString().indexOf('GMT'));
+  }
+
   lineBreaks(text: string) {
     const replace = /\n/gi;
     return text.replace(replace, '<br>');
