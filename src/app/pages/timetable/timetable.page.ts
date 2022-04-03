@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {TimetableDay} from "../../models/timetable_item";
 import {TimetableService} from "../../services/timetable.service";
@@ -32,19 +32,9 @@ export class TimetablePage implements OnInit {
 
   }
 
-  getBgColor(category) {
-    switch (category.toLowerCase()) {
-      case 'event':
-        return 'rgba(250, 208, 40, 1)';
-      case 'seminar':
-        return 'rgba(136, 187, 255, 1)';
-      case 'deadline':
-        return 'rgba(229, 85, 74, 1)';
-      case 'compo':
-        return 'rgba(99, 168, 72, 1)';
-      default:
-        return '';
-    }
+  lineBreaks(text: string) {
+    const replace = /\n/gi;
+    return text.replace(replace, '<br>');
   }
 
   ngOnInit() {
