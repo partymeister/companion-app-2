@@ -3,6 +3,7 @@ import {NavigationService} from "./services/navigation.service";
 import {NavigationItem} from "./models/navigation_item";
 import {MenuController} from "@ionic/angular";
 import {AuthenticationService} from "./services/authentication.service";
+import { SplashScreen } from '@capacitor/splash-screen';
 
 @Component({
   selector: 'app-root',
@@ -21,15 +22,17 @@ export class AppComponent {
 
   constructor(navigationService: NavigationService, menuController: MenuController, authenticationService: AuthenticationService) {
     this.menuController = menuController;
-    this.authenticationService = authenticationService
+    this.authenticationService = authenticationService;
     navigationService.getNavigation()
-      .subscribe((data: NavigationItem) => {
+      .subscribe(async (data: NavigationItem) => {
         this.navigationItems = [...data['data'].items];
 
         this.navigationItems.forEach((value, index) => {
           this.hideMenu[index] = true;
         });
         console.log(this.navigationItems);
+
+        await SplashScreen.hide();
       });
 
   }
