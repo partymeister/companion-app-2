@@ -88,12 +88,13 @@ export class AppComponent {
   // Call this function when your app starts
   OneSignalInit(): void {
     this.platform.ready().then(() => {
+      if (this.platform.is('capacitor')) {
+        OneSignal.setAppId('3fdb8164-8438-4afb-b4f4-95ec317ebd88');
 
-      OneSignal.setAppId('3fdb8164-8438-4afb-b4f4-95ec317ebd88');
-
-      OneSignal.promptForPushNotificationsWithUserResponse((accepted) => {
-        console.log('User accepted notifications: ' + accepted);
-      });
+        OneSignal.promptForPushNotificationsWithUserResponse((accepted) => {
+          console.log('User accepted notifications: ' + accepted);
+        });
+      }
     });
   }
 }
