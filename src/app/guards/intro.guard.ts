@@ -17,7 +17,7 @@ export class IntroGuard implements CanActivate {
       if (introVisited) {
         return true;
       }
-      return this.router.navigate(['intro']).then(r => r);
+      return this.router.navigate(['intro'], {replaceUrl: true}).then(r => r);
     });
   }
 }
