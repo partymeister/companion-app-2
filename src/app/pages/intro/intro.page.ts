@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
   selector: 'app-intro',
@@ -10,9 +12,14 @@ export class IntroPage implements OnInit {
     initialSlide: 0,
     speed: 400
   };
-  constructor() { }
+  constructor(private router: Router, private storageService: StorageService) { }
 
   ngOnInit() {
+  }
+
+  public async setCookieAndRedirect() {
+    await this.storageService.set('intro_visited', true);
+    await this.router.navigate(['NewsPage']);
   }
 
 }
