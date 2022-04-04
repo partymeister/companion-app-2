@@ -11,19 +11,18 @@ import {ActivatedRoute} from "@angular/router";
 export class NewsPage implements OnInit {
 
   public newsItems: NewsItem[];
-
-  constructor(newsService: NewsService, activatedRoute: ActivatedRoute) {
+  private url = '';
+  constructor(private newsService: NewsService, activatedRoute: ActivatedRoute) {
 
     activatedRoute.queryParams.subscribe(params => {
-      let url = '';
 
       if (params.dataUrl === undefined) {
-        url = 'https://2022.revision-party.net/blog/index.json';
+        this.url = 'https://2022.revision-party.net/blog/index.json';
       } else {
-        url = params.dataUrl;
+        this.url = params.dataUrl;
       }
 
-      newsService.getNews(url)
+      newsService.getNews(this.url)
         .subscribe((data: NewsItem) => {
           this.newsItems = [...data['data']];
           console.log(this.newsItems);
@@ -35,4 +34,13 @@ export class NewsPage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.newsService.getNews(this.url)
+      .subscribe((data: NewsItem) => {
+        this.newsItems = [...data['data']];
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }

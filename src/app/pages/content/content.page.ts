@@ -11,8 +11,8 @@ import {ContentService} from "../../services/content.service";
 export class ContentPage implements OnInit {
 
   public contentItem: ContentItem;
-
-  constructor(contentService: ContentService, activatedRoute: ActivatedRoute) {
+  private url = '';
+  constructor(private contentService: ContentService, activatedRoute: ActivatedRoute) {
 
     this.contentItem = {
       title: '',
@@ -21,8 +21,8 @@ export class ContentPage implements OnInit {
     };
 
     activatedRoute.queryParams.subscribe(params => {
-
-      contentService.getData(params.dataUrl)
+      this.url = params.dataUrl;
+      contentService.getData(this.url)
         .subscribe((data: ContentItem) => {
           this.contentItem = data;
           console.log(this.contentItem);
@@ -34,4 +34,14 @@ export class ContentPage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.contentService.getData(this.url)
+      .subscribe((data: ContentItem) => {
+        this.contentItem = data;
+        console.log(this.contentItem);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }

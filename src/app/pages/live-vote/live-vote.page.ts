@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, Subject, timer} from "rxjs";
 import {retry, share, switchMap, takeUntil} from "rxjs/operators";
 import {sprintf} from 'sprintf-js';
+import {VisitorItem} from "../../models/visitor_item";
 
 @Component({
   selector: 'app-live-vote',
@@ -121,4 +122,12 @@ export class LiveVotePage implements OnInit, OnDestroy {
     entry.vote.points = points;
     this.voteService.vote(this.apiUrl, this.authenticationService.apiToken(), points, entry.vote.comment, entry);
   }
+
+  // Not sure if this is required on voting page
+  /*doRefresh($event: any) {
+    this.getAllEntries();
+    setTimeout(() => {
+      $event.target.complete();
+    }, 1000);
+  }*/
 }
