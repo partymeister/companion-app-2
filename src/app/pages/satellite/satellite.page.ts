@@ -11,8 +11,9 @@ import {SatelliteItem} from "../../models/satellite_item";
 export class SatellitePage implements OnInit {
 
   public satelliteItem: SatelliteItem;
+  private url = '';
 
-  constructor(satelliteService: SatelliteService, activatedRoute: ActivatedRoute) {
+  constructor(private satelliteService: SatelliteService, activatedRoute: ActivatedRoute) {
 
     this.satelliteItem = {
       intro: '',
@@ -23,8 +24,8 @@ export class SatellitePage implements OnInit {
     };
 
     activatedRoute.queryParams.subscribe(params => {
-
-      satelliteService.getData(params.dataUrl)
+      this.url = params.dataUrl;
+      satelliteService.getData(this.url)
         .subscribe((data: SatelliteItem) => {
           this.satelliteItem = data['data'];
           console.log(this.satelliteItem);
@@ -44,4 +45,14 @@ export class SatellitePage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.satelliteService.getData(this.url)
+      .subscribe((data: SatelliteItem) => {
+        this.satelliteItem = data['data'];
+        console.log(this.satelliteItem);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }

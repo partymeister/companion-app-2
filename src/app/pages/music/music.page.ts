@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {MusicItem} from "../../models/music_item";
 import {MusicService} from "../../services/music.service";
+import {SeminarItem} from "../../models/seminar_item";
 
 @Component({
   selector: 'app-music',
@@ -11,8 +12,8 @@ import {MusicService} from "../../services/music.service";
 export class MusicPage implements OnInit {
 
   public musicItem: MusicItem;
-
-  constructor(musicService: MusicService, activatedRoute: ActivatedRoute) {
+  private url = '';
+  constructor(private musicService: MusicService, activatedRoute: ActivatedRoute) {
 
     this.musicItem = {
       intro: '',
@@ -20,8 +21,8 @@ export class MusicPage implements OnInit {
     };
 
     activatedRoute.queryParams.subscribe(params => {
-
-      musicService.getData(params.dataUrl)
+      this.url = params.dataUrl;
+      musicService.getData(this.url)
         .subscribe((data: MusicItem) => {
           this.musicItem = data['data'];
           console.log(this.musicItem);
@@ -37,4 +38,14 @@ export class MusicPage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.musicService.getData(this.url)
+      .subscribe((data: MusicItem) => {
+        this.musicItem = data['data'];
+        console.log(this.musicItem);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }

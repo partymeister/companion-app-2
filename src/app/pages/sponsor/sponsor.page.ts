@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SponsorItem} from "../../models/sponsor_item";
 import {SponsorService} from "../../services/sponsor.service";
+import {ContentItem} from "../../models/content_item";
 
 @Component({
   selector: 'app-sponsor',
@@ -11,8 +12,8 @@ import {SponsorService} from "../../services/sponsor.service";
 export class SponsorPage implements OnInit {
 
   public sponsorItem: SponsorItem;
-
-  constructor(sponsorService: SponsorService, activatedRoute: ActivatedRoute) {
+  private url = '';
+  constructor(private sponsorService: SponsorService, activatedRoute: ActivatedRoute) {
 
     this.sponsorItem = {
       outro: '',
@@ -23,8 +24,8 @@ export class SponsorPage implements OnInit {
     };
 
     activatedRoute.queryParams.subscribe(params => {
-
-      sponsorService.getData(params.dataUrl)
+      this.url = params.dataUrl;
+      sponsorService.getData(this.url)
         .subscribe((data: SponsorItem) => {
           this.sponsorItem = data['data'];
           console.log(this.sponsorItem);
@@ -44,4 +45,14 @@ export class SponsorPage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.sponsorService.getData(this.url)
+      .subscribe((data: SponsorItem) => {
+        this.sponsorItem = data['data'];
+        console.log(this.sponsorItem);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }

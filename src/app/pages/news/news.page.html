@@ -9,6 +9,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshing-spinner="lines-sharp-small"></ion-refresher-content>
+  </ion-refresher>
   <div *ngFor="let item of newsItems; let i = index">
     <ion-card>
       <img [src]="item.image" />

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SeminarItem} from "../../models/seminar_item";
 import {SeminarService} from "../../services/seminar.service";
+import {VisitorItem} from "../../models/visitor_item";
 
 @Component({
   selector: 'app-seminar',
@@ -11,8 +12,8 @@ import {SeminarService} from "../../services/seminar.service";
 export class SeminarPage implements OnInit {
 
   public seminarItem: SeminarItem;
-
-  constructor(seminarService: SeminarService, activatedRoute: ActivatedRoute) {
+  private url = '';
+  constructor(private seminarService: SeminarService, activatedRoute: ActivatedRoute) {
 
     this.seminarItem = {
       intro: '',
@@ -20,8 +21,8 @@ export class SeminarPage implements OnInit {
     };
 
     activatedRoute.queryParams.subscribe(params => {
-
-      seminarService.getData(params.dataUrl)
+      this.url = params.dataUrl;
+      seminarService.getData(this.url)
         .subscribe((data: SeminarItem) => {
           this.seminarItem = data['data'];
           console.log(this.seminarItem);
@@ -37,4 +38,14 @@ export class SeminarPage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh($event: any) {
+    this.seminarService.getData(this.url)
+      .subscribe((data: SeminarItem) => {
+        this.seminarItem = data['data'];
+        console.log(this.seminarItem);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
+  }
 }
