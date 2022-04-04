@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { VisitorPageRoutingModule } from './visitor-routing.module';
 
 import { VisitorPage } from './visitor.page';
+import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    VisitorPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        VisitorPageRoutingModule,
+        ConnectivityModule
+    ],
   declarations: [VisitorPage]
 })
 export class VisitorPageModule {}

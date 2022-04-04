@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ContentPageRoutingModule } from './content-routing.module';
 
 import { ContentPage } from './content.page';
+import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ContentPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ContentPageRoutingModule,
+        ConnectivityModule
+    ],
   declarations: [ContentPage]
 })
 export class ContentPageModule {}

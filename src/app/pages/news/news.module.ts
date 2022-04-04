@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NewsPageRoutingModule } from './news-routing.module';
 
 import { NewsPage } from './news.page';
+import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewsPageRoutingModule
+    NewsPageRoutingModule,
+    ConnectivityModule
   ],
   declarations: [NewsPage]
 })
