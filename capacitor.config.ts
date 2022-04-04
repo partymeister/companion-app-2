@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'info.esmaili.partymeistercompanionapp.revision2016',
   appName: 'Revision 2022',
   webDir: 'www',
   bundledWebRuntime: false,
