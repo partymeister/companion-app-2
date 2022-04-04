@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>LiveVote</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Live Voting</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div *ngIf="liveVoteEntries">
+      <ion-card *ngFor="let entry of liveVoteEntries">
+        <ion-card-content [ngClass]="{'favourite' : entry.vote.special_vote}">
 
+          <ion-card-title>
+            <ion-badge style="float:right">#{{entry.sort_position_prefixed}}</ion-badge>
+            {{entry.title}}
+          </ion-card-title>
+          <ion-card-subtitle>
+            {{entry.author}}
+          </ion-card-subtitle>
+          <ionic-rating-component #rating
+                                  activeIcon = "star"
+                                  defaultIcon = "star-outline"
+                                  activeColor = "#FFA500"
+                                  defaultColor = "#FFA500"
+                                  readonly="{{deadlineReached}}"
+                                  [rating]="entry.vote.points === 0 ? 0.1 : entry.vote.points"
+                                  fontSize = "32px"
+                                  (ratingChanged)="onModelChange($event, entry)">
+          </ionic-rating-component>
+
+          <ion-item lines="none">
+            <p item-start></p>
+            <ion-input placeholder="Leave comment" type="text" [disabled]="deadlineReached" [(ngModel)]="entry.vote.comment" (ngModelChange)="markDirty($event, entry)"></ion-input>
+            <ion-button slot="end" (click)="onCommentSend(entry)">Send</ion-button>
+          </ion-item>
+          <ion-button *ngIf="!entry.vote.special_vote" (click)="onFavouriteSend(entry, true)" expand="block">&hearts; My party favourite &hearts;</ion-button>
+          <ion-button *ngIf="entry.vote.special_vote" (click)="onFavouriteSend(entry, false)" expand="block">&#x2639; Not my favourite anymore &#x2639;</ion-button>
+        </ion-card-content>
+      </ion-card>
+  </div>
 </ion-content>

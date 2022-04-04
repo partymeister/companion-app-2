@@ -22,6 +22,7 @@ export interface VoteEntryItem {
   screenshot: Screenshot;
   has_audio: boolean;
   audio: Screenshot;
+  is_dirty: boolean;
 }
 
 export interface Vote {

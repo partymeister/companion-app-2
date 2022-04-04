@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {sprintf} from 'sprintf-js';
 import {VoteEntryItem} from "../models/vote_entry_item";
 import {ToastController} from "@ionic/angular";
+import {interval} from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,15 @@ export class VoteService {
 
   getEntries(url: string, apiToken: string) {
     return this.http.get<VoteEntryItem>(sprintf(url + 'entries', apiToken));
+  }
+
+  getLiveVoteEntries(url: string, apiToken: string) {
+    const source = interval(1000);
+    const subscribe = source.subscribe(val => {
+      return this.http.get<VoteEntryItem>(sprintf(url + 'live', apiToken));
+    });
+
+    return subscribe;
   }
 
   vote(url: string, apiToken: string, points: number, comment: string, entry: VoteEntryItem) {
