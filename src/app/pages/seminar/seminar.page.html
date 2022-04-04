@@ -8,18 +8,20 @@
   </ion-toolbar>
 </ion-header>
 
-<div *ngIf="seminarItem.intro !== ''">
-  <div [innerHTML]="seminarItem.intro"></div>
-</div>
 
-<ion-card *ngFor="let item of seminarItem.seminars; let i = index" color="light">
-  <img [src]="item.image"/>
-  <ion-card-header>
-    <ion-card-title>{{item.title}}</ion-card-title>
-  </ion-card-header>
+<ion-content>
+  <div *ngIf="seminarItem.intro !== ''">
+    <div [innerHTML]="seminarItem.intro"></div>
+  </div>
 
-  <ion-card-content>
-    <div [innerHTML]="item.content"></div>
-  </ion-card-content>
+  <ion-card *ngFor="let item of seminarItem.speakers; let i = index" color="light">
+    <img [src]="item.image"/>
+    <ion-card-header>
+      <ion-card-title>{{item.title}}</ion-card-title>
+    </ion-card-header>
 
-</ion-card>
+    <ion-card-content>
+      <div [innerHTML]="item.content"></div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

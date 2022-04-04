@@ -7,5 +7,5 @@ export interface Seminar {
 
 export interface SeminarItem {
   intro: string;
-  seminars: Seminar[];
+  speakers: Seminar[];
 }

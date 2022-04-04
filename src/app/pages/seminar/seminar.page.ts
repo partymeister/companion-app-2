@@ -16,7 +16,7 @@ export class SeminarPage implements OnInit {
 
     this.seminarItem = {
       intro: '',
-      seminars: []
+      speakers: []
     };
 
     activatedRoute.queryParams.subscribe(params => {
