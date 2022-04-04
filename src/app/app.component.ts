@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "./services/navigation.service";
 import {NavigationItem} from "./models/navigation_item";
-import {MenuController} from "@ionic/angular";
+import {MenuController, Platform} from "@ionic/angular";
 import {AuthenticationService} from "./services/authentication.service";
+import {SplashScreen} from '@capacitor/splash-screen';
+import OneSignal from 'onesignal-cordova-plugin';
 
 @Component({
   selector: 'app-root',
@@ -19,19 +21,23 @@ export class AppComponent {
   private menuController: MenuController;
   public authenticationService: AuthenticationService;
 
-  constructor(navigationService: NavigationService, menuController: MenuController, authenticationService: AuthenticationService) {
+  constructor(navigationService: NavigationService, menuController: MenuController, authenticationService: AuthenticationService, private platform: Platform) {
     this.menuController = menuController;
-    this.authenticationService = authenticationService
+    this.authenticationService = authenticationService;
     navigationService.getNavigation()
-      .subscribe((data: NavigationItem) => {
+      .subscribe(async (data: NavigationItem) => {
         this.navigationItems = [...data['data'].items];
 
         this.navigationItems.forEach((value, index) => {
           this.hideMenu[index] = true;
         });
         console.log(this.navigationItems);
+
+        await SplashScreen.hide();
       });
 
+
+    this.OneSignalInit();
   }
 
   public showItem(navigationItem) {
@@ -77,5 +83,17 @@ export class AppComponent {
   public showPage(page) {
     return true;
     // return this.app.showPage(page);
+  }
+
+  // Call this function when your app starts
+  OneSignalInit(): void {
+    this.platform.ready().then(() => {
+
+      OneSignal.setAppId('3fdb8164-8438-4afb-b4f4-95ec317ebd88');
+
+      OneSignal.promptForPushNotificationsWithUserResponse((accepted) => {
+        console.log('User accepted notifications: ' + accepted);
+      });
+    });
   }
 }
