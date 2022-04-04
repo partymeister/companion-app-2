@@ -19,7 +19,7 @@ export class IntroPage implements OnInit {
 
   public async setCookieAndRedirect() {
     await this.storageService.set('intro_visited', true);
-    await this.router.navigate(['NewsPage']);
+    await this.router.navigate(['NewsPage'], {replaceUrl: true});
   }
 
 }
