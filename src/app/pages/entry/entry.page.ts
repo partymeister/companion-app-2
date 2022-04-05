@@ -5,6 +5,7 @@ import {MenuController, ModalController} from "@ionic/angular";
 import {EntryService} from "../../services/entry.service";
 import {EntryItem} from "../../models/entry_item";
 import {EntryModalPage} from "../entry-modal/entry-modal.page";
+import {SeminarItem} from "../../models/seminar_item";
 
 @Component({
   selector: 'app-entry',
@@ -14,7 +15,7 @@ import {EntryModalPage} from "../entry-modal/entry-modal.page";
 export class EntryPage implements OnInit {
 
   public entryItems: EntryItem[];
-
+  private url = '';
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -27,7 +28,8 @@ export class EntryPage implements OnInit {
     this.entryItems = [];
 
     activatedRoute.queryParams.subscribe(params => {
-      entryService.getData(params.dataUrl, this.authenticationService.apiToken())
+      this.url = params.dataUrl;
+      entryService.getData(this.url, this.authenticationService.apiToken())
         .subscribe((data: EntryItem) => {
           this.entryItems = [...data['data']];
           console.log(this.entryItems);
@@ -52,5 +54,16 @@ export class EntryPage implements OnInit {
         this.menuController.open();
       });
     }
+  }
+
+  doRefresh($event: any) {
+    this.entryService.getData(this.url, this.authenticationService.apiToken())
+      .subscribe((data: EntryItem) => {
+        this.entryItems = [...data['data']];
+        console.log(this.entryItems);
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
   }
 }

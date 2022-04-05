@@ -9,6 +9,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshing-spinner="revision">
+      <div class="custom_spinner">
+        <img src="assets/images/revision_o_white.svg" alt="spinner">
+      </div>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-item *ngIf="competition_id !== null">
     <ion-label>Competition</ion-label>
     <ion-select [(ngModel)]="competition_id">
