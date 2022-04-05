@@ -12,6 +12,7 @@ export class ContentPage implements OnInit {
 
   public contentItem: ContentItem;
   private url = '';
+  loading = false;
   constructor(private contentService: ContentService, activatedRoute: ActivatedRoute) {
 
     this.contentItem = {
@@ -34,11 +35,13 @@ export class ContentPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.contentService.getData(this.url, true)
       .subscribe((data) => {
         this.contentItem = data;
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

@@ -16,7 +16,7 @@ export class NewsPage implements OnInit {
   private url = '';
   loading = false;
 
-  constructor(private newsService: NewsService, activatedRoute: ActivatedRoute, private storageService: StorageService) {
+  constructor(private newsService: NewsService, activatedRoute: ActivatedRoute) {
 
     activatedRoute.queryParams.subscribe(params => {
 

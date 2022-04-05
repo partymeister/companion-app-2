@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Watch the stream</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshing-spinner="revision">
+      <div class="custom_spinner" *ngIf="loading">
+        <img src="assets/images/revision_o_white.svg" alt="spinner">
+      </div>
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngFor="let item of streamItems; let i = index">
+    <ion-card>
+      <video preload="none" width="100%" poster="{{item.image}}" controls="controls">
+        <source [src]="item.url" id="m3u8" type="application/vnd.apple.mpegURL"/>
+      </video>
+      <ion-card-header>
+        <ion-card-subtitle>{{ item.provider}}</ion-card-subtitle>
+        <ion-card-title>{{item.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content [innerHTML]="item.description"></ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+<app-connectivity></app-connectivity>

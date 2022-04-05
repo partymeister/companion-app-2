@@ -90,6 +90,14 @@ const routes: Routes = [
     path: 'SeminarPage/:index',
     loadChildren: () => import('./pages/seminar/seminar.module').then( m => m.SeminarPageModule),
     canActivate:[IntroGuard],
+  },
+  {
+    path: 'StreamPage',
+    loadChildren: () => import('./pages/stream/stream.module').then( m => m.StreamPageModule)
+  },
+  {
+    path: 'StreamPage/:index',
+    loadChildren: () => import('./pages/stream/stream.module').then( m => m.StreamPageModule)
   }
 ];
 
