@@ -33,6 +33,7 @@
     "@ionic/angular": "^6.0.0",
     "flag-icons": "^6.1.1",
     "hash-it": "^5.0.2",
+    "hls.js": "^1.1.5",
     "ionic-rating-component": "^1.2.1",
     "moment": "^2.29.2",
     "onesignal-cordova-plugin": "^3.0.2",

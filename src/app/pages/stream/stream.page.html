@@ -18,9 +18,7 @@
   </ion-refresher>
   <div *ngFor="let item of streamItems; let i = index">
     <ion-card>
-      <video preload="none" width="100%" poster="{{item.image}}" controls="controls">
-        <source [src]="item.url" id="m3u8" type="application/vnd.apple.mpegURL"/>
-      </video>
+      <video id="player_{{i}}" preload="none" width="100%" poster="{{item.image}}" controls></video>
       <ion-card-header>
         <ion-card-subtitle>{{ item.provider}}</ion-card-subtitle>
         <ion-card-title>{{item.name}}</ion-card-title>

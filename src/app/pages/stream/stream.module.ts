@@ -8,6 +8,7 @@ import { StreamPageRoutingModule } from './stream-routing.module';
 
 import { StreamPage } from './stream.page';
 import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
+import {VjsPlayerComponent} from "../../components/vjs-player.component";
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import {ConnectivityModule} from "../../modules/connectivity/connectivity.module
     StreamPageRoutingModule,
     ConnectivityModule
   ],
-  declarations: [StreamPage]
+  declarations: [StreamPage, VjsPlayerComponent]
 })
 export class StreamPageModule {}

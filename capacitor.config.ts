@@ -22,6 +22,11 @@ const config: CapacitorConfig = {
       useDialog: true,
     },
   },
+  server: {
+    allowNavigation: [
+      "cdn.c3voc.de"
+    ]
+  }
 };
 
 export default config;
