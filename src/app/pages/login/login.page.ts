@@ -5,6 +5,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {AlertController, MenuController} from '@ionic/angular';
 import {ContentItem} from '../../models/content_item';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BarcodeService} from "../../services/barcode.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginPage implements OnInit {
   registrationForm: FormGroup;
 
   public countries: any[] = [];
-
+  success = false;
   private baseUrl: string;
 
   constructor(
@@ -27,7 +28,8 @@ export class LoginPage implements OnInit {
     private menuController: MenuController,
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private barcodeService: BarcodeService
   ) {
 
     this.countries = countryService.getCountries();
@@ -67,8 +69,15 @@ export class LoginPage implements OnInit {
     return rv;
   }
 
-  openCamera(event) {
-    console.log('Clicked on open camera');
+  async openCamera(event) {
+    event.stopPropagation();
+    const barcode = await this.barcodeService.startScan();
+    this.registrationForm.patchValue({access_key: barcode.toUpperCase()}, {onlySelf: true, emitEvent: false});
+    this.success = true;
+    await this.barcodeService.stopScan();
+    setTimeout(() => {
+      this.success = false;
+    }, 3000);
   }
 
   submitLogin() {
@@ -125,6 +134,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    //this.barcodeService.prepare();
   }
 
 }

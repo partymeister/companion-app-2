@@ -44,11 +44,14 @@
         <ion-select-option *ngFor="let c of countries" [value]="c.code">{{ c.value }}</ion-select-option>
       </ion-select>
     </ion-item>
-    <ion-item lines="none">
-<!--      <ion-button type="button" (click)="openCamera($event)" color="light" slot="end"><ion-icon name="camera"></ion-icon></ion-button>-->
-      <ion-label>Access Key</ion-label>
-      <ion-input type="text" formControlName="access_key"></ion-input>
-    </ion-item>
+    <div class="access_key">
+      <ion-item lines="none">
+        <ion-label>Access Key</ion-label>
+        <ion-input type="text" formControlName="access_key"></ion-input>
+        <ion-icon *ngIf="success" name="checkmark-circle-outline" color="success"></ion-icon>
+      </ion-item>
+      <ion-button type="button" expand="block" (click)="openCamera($event); $event.stopPropagation()" color="light">scan ticket<ion-icon name="scan-circle-outline"></ion-icon></ion-button>
+    </div>
     <ion-item lines="none">
       <ion-label>Password</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
