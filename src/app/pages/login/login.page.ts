@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
   registrationForm: FormGroup;
 
   public countries: any[] = [];
-
+  success = false;
   private baseUrl: string;
 
   constructor(
@@ -70,9 +70,14 @@ export class LoginPage implements OnInit {
   }
 
   async openCamera(event) {
+    event.stopPropagation();
     const barcode = await this.barcodeService.startScan();
     this.registrationForm.patchValue({access_key: barcode.toUpperCase()}, {onlySelf: true, emitEvent: false});
+    this.success = true;
     await this.barcodeService.stopScan();
+    setTimeout(() => {
+      this.success = false;
+    }, 3000);
   }
 
   submitLogin() {
@@ -129,7 +134,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    this.barcodeService.prepare();
+    //this.barcodeService.prepare();
   }
 
 }

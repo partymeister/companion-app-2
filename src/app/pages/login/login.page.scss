@@ -1,10 +1,17 @@
-ion-content > div {
-  margin: 24px 16px;
-}
-ion-list {
-  background-color: transparent;
-}
-ion-item {
-  --background: none !important;
-  --background-activated: white !important;  //color: black;
+:host {
+  ion-content > div {
+    margin: 24px 16px;
+  }
+  ion-list {
+    background-color: transparent;
+  }
+  ion-item {
+    --background: none !important;
+    --background-activated: white !important;  //color: black;
+  }
+  .access_key {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

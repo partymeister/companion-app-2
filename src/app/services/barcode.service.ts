@@ -9,18 +9,18 @@ export class BarcodeService {
   constructor() { }
 
   startScan = async () => {
-    await BarcodeScanner.hideBackground(); // make background of WebView transparent
+    document.body.style.opacity='0';
+    document.body.style.background = 'transparent';
+    BarcodeScanner.hideBackground();
     const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
 
     // if the result has content
     if (result.hasContent) {
       console.log(result.content); // log the raw scanned content
+      document.body.style.background = '';
+      document.body.style.opacity='1';
       return result.content;
     }
-  };
-
-  prepare = () => {
-    BarcodeScanner.prepare();
   };
 
   stopScan = async () => {
