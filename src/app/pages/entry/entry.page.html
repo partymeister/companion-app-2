@@ -9,6 +9,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshing-spinner="revision">
+      <div class="custom_spinner">
+        <img src="assets/images/revision_o_white.svg" alt="spinner">
+      </div>
+    </ion-refresher-content>
+  </ion-refresher>
   <div>
     <h5 *ngIf="entryItems.length === 0">You haven't uploaded any entries yet. Log in with your browser on a desktop computer to upload your entries.</h5>
   </div>

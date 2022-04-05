@@ -4,6 +4,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {VoteService} from "../../services/vote.service";
 import {FormControl, Validators} from "@angular/forms";
 import {VoteEntryItem} from "../../models/vote_entry_item";
+import {EntryItem} from "../../models/entry_item";
 
 @Component({
   selector: 'app-vote',
@@ -103,5 +104,16 @@ export class VotePage implements OnInit {
       return;
     }
     this.voteService.vote(this.apiUrl, this.authenticationService.apiToken(), points, entry.comment, entry);
+  }
+
+  doRefresh($event: any) {
+    this.voteService.getEntries(this.apiUrl, this.authenticationService.apiToken())
+      .subscribe((data: VoteEntryItem) => {
+        this.entryItems = [...data['data']];
+        this.getVotingEntries();
+        setTimeout(() => {
+          $event.target.complete();
+        }, 1000);
+      });
   }
 }
