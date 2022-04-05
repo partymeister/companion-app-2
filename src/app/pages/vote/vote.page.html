@@ -30,7 +30,7 @@
       </ion-card-content>
     </ion-card>
     <ion-card *ngFor="let entry of competitions[competition_id].entries">
-      <img *ngIf="entry.screenshot?.url" [src]="entry.screenshot.url">
+      <img *ngIf="entry.screenshot?.url" [src]="entry.screenshot.conversions.thumb">
       <ion-card-content [ngClass]="{'favourite' : entry.favourite}">
         <audio *ngIf="entry.has_audio && entry.audio.url" controls>
           <source [src]="entry.audio.url" type="audio/mpeg">
