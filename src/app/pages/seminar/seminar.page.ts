@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {SeminarItem} from "../../models/seminar_item";
 import {SeminarService} from "../../services/seminar.service";
-import {VisitorItem} from "../../models/visitor_item";
 
 @Component({
   selector: 'app-seminar',
@@ -25,8 +24,7 @@ export class SeminarPage implements OnInit {
       this.url = params.dataUrl;
       seminarService.getData(this.url)
         .subscribe((data: SeminarItem) => {
-          this.seminarItem = data['data'];
-          console.log(this.seminarItem);
+          this.seminarItem = data;
         });
     });
 
@@ -41,10 +39,9 @@ export class SeminarPage implements OnInit {
 
   doRefresh($event: any) {
     this.loading = true;
-    this.seminarService.getData(this.url)
+    this.seminarService.getData(this.url, true)
       .subscribe((data: SeminarItem) => {
-        this.seminarItem = data['data'];
-        console.log(this.seminarItem);
+        this.seminarItem = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;

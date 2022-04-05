@@ -25,7 +25,6 @@ export class ContentPage implements OnInit {
       contentService.getData(this.url)
         .subscribe((data: ContentItem) => {
           this.contentItem = data;
-          console.log(this.contentItem);
         });
     });
 
@@ -35,10 +34,9 @@ export class ContentPage implements OnInit {
   }
 
   doRefresh($event: any) {
-    this.contentService.getData(this.url)
-      .subscribe((data: ContentItem) => {
+    this.contentService.getData(this.url, true)
+      .subscribe((data) => {
         this.contentItem = data;
-        console.log(this.contentItem);
         setTimeout(() => {
           $event.target.complete();
         }, 1000);

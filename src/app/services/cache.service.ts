@@ -14,7 +14,7 @@ export class CacheService {
     [id: string]: {
       expires: Date;
       value: Observable<any>;
-    }
+    };
   } = {};
 
   constructor() {
@@ -33,6 +33,12 @@ export class CacheService {
 
     return item.value;
   }
+
+  deleteValue(object: any) {
+    const key = hash(object).toString();
+    delete this.cache[key];
+  }
+
 
   setValue(value: Observable<any>, object: any) {
     const key = hash(object).toString();

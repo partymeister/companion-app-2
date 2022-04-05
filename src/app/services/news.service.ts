@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NewsItem} from "../models/news_item";
-import {StorageService} from "./storage.service";
 import {Observable} from "rxjs";
-import {map, shareReplay, take} from "rxjs/operators";
+import {map, shareReplay} from "rxjs/operators";
 import {CacheService} from "./cache.service";
 
 @Injectable({
@@ -13,7 +12,6 @@ export class NewsService {
 
   constructor(
     private http: HttpClient,
-    private storageService: StorageService,
     private cacheService: CacheService,
   ) {
   }

@@ -94,7 +94,6 @@ export class LiveVotePage implements OnInit, OnDestroy {
     }
 
     entry.is_dirty = false;
-    console.log(entry);
     this.voteService.vote(this.apiUrl, this.authenticationService.apiToken(), entry.vote.points, entry.vote.comment, entry);
   }
 
@@ -117,7 +116,6 @@ export class LiveVotePage implements OnInit, OnDestroy {
   }
 
   onModelChange(points, entry) {
-    console.log(points);
     if (this.deadlineReached) {
       return;
     }

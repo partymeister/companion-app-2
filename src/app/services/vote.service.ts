@@ -3,7 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {sprintf} from 'sprintf-js';
 import {VoteEntryItem} from "../models/vote_entry_item";
 import {ToastController} from "@ionic/angular";
-import {interval} from 'rxjs';
+import {empty, interval, Observable} from 'rxjs';
+import {CacheService} from "./cache.service";
+import {map, shareReplay} from "rxjs/operators";
 
 
 @Injectable({
@@ -13,13 +15,30 @@ export class VoteService {
 
   constructor(
     private http: HttpClient,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private cacheService: CacheService,
   ) {
   }
 
-  getEntries(url: string, apiToken: string) {
-    return this.http.get<VoteEntryItem>(sprintf(url + 'entries', apiToken));
+  getEntries(url: string, apiToken: string, force: boolean = false) {
+    let data$;
+    if (!force) {
+      data$ = this.cacheService.getValue(url);
+    }
+
+    if (!data$) {
+      console.log("not cached");
+      data$ = this.http.get(sprintf(url + 'entries', apiToken)).pipe(
+        map((response: any) => response.data),
+        shareReplay(1)
+      );
+      this.cacheService.setValue(data$, url);
+    } else {
+      console.log("get data from cache");
+    }
+    return data$;
   }
+
 
   getLiveVoteEntries(url: string, apiToken: string) {
     const source = interval(1000);
@@ -32,6 +51,7 @@ export class VoteService {
 
   vote(url: string, apiToken: string, points: number, comment: string, entry: VoteEntryItem) {
 
+    this.cacheService.deleteValue(url);
     return this.http.post<VoteEntryItem>(sprintf(url + '%s/vote', apiToken, entry.id), {
       points: points,
       comment: comment === null ? '' : comment,

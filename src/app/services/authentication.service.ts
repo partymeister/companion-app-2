@@ -20,7 +20,6 @@ export class AuthenticationService {
   constructor(public http: HttpClient, private storageService: StorageService) {
     this.storageService.get('user').then(res => {
       if (res != null) {
-        console.log(res);
         this.user = res as User;
         this.authenticated = true;
       }
@@ -40,8 +39,6 @@ export class AuthenticationService {
     console.log(user);
     await this.storageService.set('user', user);
     this.authenticated = true;
-
-    console.log(this.authenticated);
 
     return new Promise((resolve, reject) => {
       resolve(true);

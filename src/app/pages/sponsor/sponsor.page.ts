@@ -28,8 +28,7 @@ export class SponsorPage implements OnInit {
       this.url = params.dataUrl;
       sponsorService.getData(this.url)
         .subscribe((data: SponsorItem) => {
-          this.sponsorItem = data['data'];
-          console.log(this.sponsorItem);
+          this.sponsorItem = data;
         });
     });
 
@@ -48,10 +47,9 @@ export class SponsorPage implements OnInit {
 
   doRefresh($event: any) {
     this.loading = true;
-    this.sponsorService.getData(this.url)
+    this.sponsorService.getData(this.url, true)
       .subscribe((data: SponsorItem) => {
-        this.sponsorItem = data['data'];
-        console.log(this.sponsorItem);
+        this.sponsorItem = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;

@@ -31,9 +31,8 @@ export class EntryPage implements OnInit {
     activatedRoute.queryParams.subscribe(params => {
       this.url = params.dataUrl;
       entryService.getData(this.url, this.authenticationService.apiToken())
-        .subscribe((data: EntryItem) => {
-          this.entryItems = [...data['data']];
-          console.log(this.entryItems);
+        .subscribe((data) => {
+          this.entryItems = data;
         });
 
     });
@@ -59,10 +58,9 @@ export class EntryPage implements OnInit {
 
   doRefresh($event: any) {
     this.loading = true;
-    this.entryService.getData(this.url, this.authenticationService.apiToken())
-      .subscribe((data: EntryItem) => {
-        this.entryItems = [...data['data']];
-        console.log(this.entryItems);
+    this.entryService.getData(this.url, this.authenticationService.apiToken(), true)
+      .subscribe((data) => {
+        this.entryItems = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;

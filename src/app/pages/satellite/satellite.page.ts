@@ -28,8 +28,7 @@ export class SatellitePage implements OnInit {
       this.url = params.dataUrl;
       satelliteService.getData(this.url)
         .subscribe((data: SatelliteItem) => {
-          this.satelliteItem = data['data'];
-          console.log(this.satelliteItem);
+          this.satelliteItem = data;
         });
     });
 
@@ -48,10 +47,9 @@ export class SatellitePage implements OnInit {
 
   doRefresh($event: any) {
     this.loading = true;
-    this.satelliteService.getData(this.url)
+    this.satelliteService.getData(this.url, true)
       .subscribe((data: SatelliteItem) => {
-        this.satelliteItem = data['data'];
-        console.log(this.satelliteItem);
+        this.satelliteItem = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;

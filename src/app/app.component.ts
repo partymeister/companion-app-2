@@ -31,7 +31,6 @@ export class AppComponent {
         this.navigationItems.forEach((value, index) => {
           this.hideMenu[index] = true;
         });
-        console.log(this.navigationItems);
 
         await SplashScreen.hide();
       });

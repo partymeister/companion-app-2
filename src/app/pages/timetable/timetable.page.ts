@@ -24,9 +24,8 @@ export class TimetablePage implements OnInit {
       }
 
       timetableService.getData(this.url)
-        .subscribe((data: TimetableDay) => {
-          this.timetableDays = [...data['timetable']];
-          console.log(this.timetableDays);
+        .subscribe((data: TimetableDay[]) => {
+          this.timetableDays = data;
         });
     });
 
@@ -46,9 +45,9 @@ export class TimetablePage implements OnInit {
 
   doRefresh($event: any) {
     this.loading = true;
-    this.timetableService.getData(this.url)
-      .subscribe((data: TimetableDay) => {
-        this.timetableDays = [...data['timetable']];
+    this.timetableService.getData(this.url, true)
+      .subscribe((data: TimetableDay[]) => {
+        this.timetableDays = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;

@@ -41,8 +41,8 @@ export class VotePage implements OnInit {
       this.apiUrl = params.dataUrl;
       this.loadingCompetitions = true;
       voteService.getEntries(params.dataUrl, this.authenticationService.apiToken())
-        .subscribe((data: VoteEntryItem) => {
-          this.entryItems = [...data['data']];
+        .subscribe((data: VoteEntryItem[]) => {
+          this.entryItems = data;
           this.loadingCompetitions = false;
           this.getVotingEntries();
         });
@@ -59,7 +59,7 @@ export class VotePage implements OnInit {
     });
   }
 
-  getVotingEntries(force?, refresher?) {
+  getVotingEntries() {
     this.entryItems.filter(element => {
 
       this.deadlineReached = element.deadline_reached;
@@ -101,7 +101,6 @@ export class VotePage implements OnInit {
   }
 
   onModelChange(points, entry) {
-    console.log(points);
     if (this.deadlineReached) {
       return;
     }
@@ -111,8 +110,8 @@ export class VotePage implements OnInit {
   doRefresh($event: any) {
     this.loading = true;
     this.voteService.getEntries(this.apiUrl, this.authenticationService.apiToken())
-      .subscribe((data: VoteEntryItem) => {
-        this.entryItems = [...data['data']];
+      .subscribe((data: VoteEntryItem[]) => {
+        this.entryItems = data;
         this.getVotingEntries();
         setTimeout(() => {
           $event.target.complete();
