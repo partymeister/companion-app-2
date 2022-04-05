@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NewsItem} from "../../models/news_item";
 import {NewsService} from "../../services/news.service";
 import {ActivatedRoute} from "@angular/router";
+import {StorageService} from "../../services/storage.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-news',
@@ -13,7 +15,8 @@ export class NewsPage implements OnInit {
   public newsItems: NewsItem[];
   private url = '';
   loading = false;
-  constructor(private newsService: NewsService, activatedRoute: ActivatedRoute) {
+
+  constructor(private newsService: NewsService, activatedRoute: ActivatedRoute, private storageService: StorageService) {
 
     activatedRoute.queryParams.subscribe(params => {
 
@@ -24,9 +27,8 @@ export class NewsPage implements OnInit {
       }
 
       newsService.getNews(this.url)
-        .subscribe((data: NewsItem) => {
-          this.newsItems = [...data['data']];
-          console.log(this.newsItems);
+        .subscribe((data: NewsItem[]) => {
+          this.newsItems = data;
         });
     });
 
@@ -35,11 +37,12 @@ export class NewsPage implements OnInit {
   ngOnInit() {
   }
 
-  doRefresh($event: any) {
+  async doRefresh($event: any) {
     this.loading = true;
-    this.newsService.getNews(this.url)
-      .subscribe((data: NewsItem) => {
-        this.newsItems = [...data['data']];
+
+    this.newsService.getNews(this.url, true)
+      .subscribe((data: NewsItem[]) => {
+        this.newsItems = data;
         setTimeout(() => {
           $event.target.complete();
           this.loading = false;
