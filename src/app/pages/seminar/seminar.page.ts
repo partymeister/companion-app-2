@@ -13,6 +13,7 @@ export class SeminarPage implements OnInit {
 
   public seminarItem: SeminarItem;
   private url = '';
+  loading = false;
   constructor(private seminarService: SeminarService, activatedRoute: ActivatedRoute) {
 
     this.seminarItem = {
@@ -39,12 +40,14 @@ export class SeminarPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.seminarService.getData(this.url)
       .subscribe((data: SeminarItem) => {
         this.seminarItem = data['data'];
         console.log(this.seminarItem);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

@@ -13,7 +13,7 @@ export class TimetablePage implements OnInit {
 
   public timetableDays: TimetableDay[];
   private url = '';
-
+  loading = false;
   constructor(private timetableService: TimetableService, activatedRoute: ActivatedRoute) {
 
     activatedRoute.queryParams.subscribe(params => {
@@ -45,11 +45,13 @@ export class TimetablePage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.timetableService.getData(this.url)
       .subscribe((data: TimetableDay) => {
         this.timetableDays = [...data['timetable']];
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

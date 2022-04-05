@@ -12,6 +12,7 @@ export class NewsPage implements OnInit {
 
   public newsItems: NewsItem[];
   private url = '';
+  loading = false;
   constructor(private newsService: NewsService, activatedRoute: ActivatedRoute) {
 
     activatedRoute.queryParams.subscribe(params => {
@@ -35,11 +36,13 @@ export class NewsPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.newsService.getNews(this.url)
       .subscribe((data: NewsItem) => {
         this.newsItems = [...data['data']];
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

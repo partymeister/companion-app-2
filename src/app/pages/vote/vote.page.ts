@@ -23,6 +23,8 @@ export class VotePage implements OnInit {
   private apiUrl: string;
 
   formControl: FormControl;
+  loading = false;
+  loadingCompetitions = false;
 
   constructor(
     private router: Router,
@@ -37,13 +39,13 @@ export class VotePage implements OnInit {
 
     activatedRoute.queryParams.subscribe(params => {
       this.apiUrl = params.dataUrl;
+      this.loadingCompetitions = true;
       voteService.getEntries(params.dataUrl, this.authenticationService.apiToken())
         .subscribe((data: VoteEntryItem) => {
           this.entryItems = [...data['data']];
-
+          this.loadingCompetitions = false;
           this.getVotingEntries();
         });
-
     });
   }
 
@@ -107,12 +109,14 @@ export class VotePage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.voteService.getEntries(this.apiUrl, this.authenticationService.apiToken())
       .subscribe((data: VoteEntryItem) => {
         this.entryItems = [...data['data']];
         this.getVotingEntries();
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

@@ -13,6 +13,7 @@ export class SponsorPage implements OnInit {
 
   public sponsorItem: SponsorItem;
   private url = '';
+  loading = false;
   constructor(private sponsorService: SponsorService, activatedRoute: ActivatedRoute) {
 
     this.sponsorItem = {
@@ -46,12 +47,14 @@ export class SponsorPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.sponsorService.getData(this.url)
       .subscribe((data: SponsorItem) => {
         this.sponsorItem = data['data'];
         console.log(this.sponsorItem);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

@@ -54,6 +54,8 @@ ion-toast.toast-danger {
 .custom_spinner {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 45px;
   img {
     height: 50px;

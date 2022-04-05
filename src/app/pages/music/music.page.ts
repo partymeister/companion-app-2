@@ -13,6 +13,7 @@ export class MusicPage implements OnInit {
 
   public musicItem: MusicItem;
   private url = '';
+  loading = false;
   constructor(private musicService: MusicService, activatedRoute: ActivatedRoute) {
 
     this.musicItem = {
@@ -39,12 +40,14 @@ export class MusicPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.musicService.getData(this.url)
       .subscribe((data: MusicItem) => {
         this.musicItem = data['data'];
         console.log(this.musicItem);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

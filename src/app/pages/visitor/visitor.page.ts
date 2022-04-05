@@ -14,6 +14,7 @@ export class VisitorPage implements OnInit {
   public visitorItems: VisitorItem[];
   public filteredVisitorItems: VisitorItem[];
   private url = '';
+  loading = false;
   constructor(private visitorService: VisitorService, activatedRoute: ActivatedRoute) {
 
     activatedRoute.queryParams.subscribe(params => {
@@ -36,6 +37,7 @@ export class VisitorPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.visitorService.getData(this.url)
       .subscribe((data: VisitorItem) => {
         this.visitorItems = [...data['data']];
@@ -43,6 +45,7 @@ export class VisitorPage implements OnInit {
         console.log(this.visitorItems);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

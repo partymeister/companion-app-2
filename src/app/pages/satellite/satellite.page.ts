@@ -12,6 +12,7 @@ export class SatellitePage implements OnInit {
 
   public satelliteItem: SatelliteItem;
   private url = '';
+  loading = false;
 
   constructor(private satelliteService: SatelliteService, activatedRoute: ActivatedRoute) {
 
@@ -46,12 +47,14 @@ export class SatellitePage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.satelliteService.getData(this.url)
       .subscribe((data: SatelliteItem) => {
         this.satelliteItem = data['data'];
         console.log(this.satelliteItem);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }

@@ -11,7 +11,7 @@
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshing-spinner="revision">
-      <div class="custom_spinner">
+      <div class="custom_spinner" *ngIf="loading">
         <img src="assets/images/revision_o_white.svg" alt="spinner">
       </div>
     </ion-refresher-content>
@@ -26,10 +26,13 @@
   </ion-item>
 
   <div class="basic-wrapper">
-    <h5 padding *ngIf="competition_id === null">No competitions to vote for at the moment
+    <h5 padding *ngIf="competition_id === null && !loadingCompetitions">No competitions to vote for at the moment
       :(</h5>
   </div>
-
+  <div class="custom_spinner" *ngIf="loadingCompetitions">
+    <img src="assets/images/revision_o_white.svg" alt="spinner">
+    <p>Loading competitions</p>
+  </div>
   <div *ngIf="competition_id !== null && competitions[competition_id]">
     <ion-card class="deadline" *ngIf="competitions[competition_id].entries[0]?.deadline_reached">
       <ion-card-content>
@@ -53,8 +56,8 @@
         <ionic-rating-component #rating
                                 activeIcon = "star"
                                 defaultIcon = "star-outline"
-                                activeColor = "#FFA500"
-                                defaultColor = "#FFA500"
+                                activeColor = "#E4D848"
+                                defaultColor = "#E4D848"
                                 readonly="{{deadlineReached}}"
                                 [rating]="entry.rating"
                                 fontSize = "32px"

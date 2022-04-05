@@ -16,6 +16,7 @@ export class EntryPage implements OnInit {
 
   public entryItems: EntryItem[];
   private url = '';
+  loading = false;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -57,12 +58,14 @@ export class EntryPage implements OnInit {
   }
 
   doRefresh($event: any) {
+    this.loading = true;
     this.entryService.getData(this.url, this.authenticationService.apiToken())
       .subscribe((data: EntryItem) => {
         this.entryItems = [...data['data']];
         console.log(this.entryItems);
         setTimeout(() => {
           $event.target.complete();
+          this.loading = false;
         }, 1000);
       });
   }
