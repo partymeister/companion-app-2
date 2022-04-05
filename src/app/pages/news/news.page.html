@@ -20,7 +20,7 @@
     <ion-card>
       <img [src]="item.image" />
       <ion-card-header>
-        <ion-card-subtitle>{{ item.date | date: 'MMM d, y'}}</ion-card-subtitle>
+        <ion-card-subtitle>{{ moment(item.date).format('MMM d, y')}}</ion-card-subtitle>
         <ion-card-title>{{item.title}}</ion-card-title>
       </ion-card-header>
     </ion-card>

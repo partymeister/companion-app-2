@@ -15,8 +15,11 @@ export class NewsPage implements OnInit {
   public newsItems: NewsItem[];
   private url = '';
   loading = false;
+  public moment;
 
   constructor(private newsService: NewsService, activatedRoute: ActivatedRoute) {
+
+    this.moment = moment;
 
     activatedRoute.queryParams.subscribe(params => {
 
