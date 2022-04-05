@@ -20,7 +20,7 @@
     <h5 *ngIf="entryItems.length === 0">You haven't uploaded any entries yet. Log in with your browser on a desktop computer to upload your entries.</h5>
   </div>
   <ion-card *ngFor="let entry of entryItems">
-    <img *ngIf="entry.has_screenshot && entry.screenshot" [src]="entry.screenshot.url"/>
+    <img *ngIf="entry.has_screenshot && entry.screenshot" [src]="entry.screenshot.conversions.thumb"/>
     <ion-card-content>
       <ion-card-title>
         {{entry.title}}
