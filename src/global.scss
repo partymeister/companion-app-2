@@ -43,3 +43,21 @@ ion-toast.toast-danger {
   --background: #eb445a;
   --color: black;
 }
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform:rotate(360deg);
+  }
+}
+
+.custom_spinner {
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+  img {
+    height: 50px;
+    width: auto;
+    animation:spin 4s linear infinite;
+  }
+}

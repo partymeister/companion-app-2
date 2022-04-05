@@ -10,7 +10,11 @@
 
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content refreshing-spinner="lines-sharp-small"></ion-refresher-content>
+    <ion-refresher-content refreshing-spinner="revision">
+      <div class="custom_spinner">
+        <img src="assets/images/revision_o_white.svg" alt="spinner">
+      </div>
+    </ion-refresher-content>
   </ion-refresher>
   <div *ngIf="musicItem.intro !== ''">
     <div [innerHTML]="musicItem.intro"></div>
