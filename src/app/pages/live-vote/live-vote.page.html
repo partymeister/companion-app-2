@@ -17,6 +17,9 @@
     </ion-refresher-content>
   </ion-refresher>-->
   <div *ngIf="liveVoteEntries">
+    <h5 class="basic-wrapper" *ngIf="!liveVoteEntries.length">
+      No live voting active right now!
+    </h5>
       <ion-card *ngFor="let entry of liveVoteEntries">
         <ion-card-content [ngClass]="{'favourite' : entry.vote.special_vote}">
 

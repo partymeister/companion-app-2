@@ -48,6 +48,10 @@ export class LiveVotePage implements OnInit, OnDestroy {
 
     this.liveVoteEntries$.subscribe(data => {
 
+      if (!data) {
+        return;
+      }
+
       const liveVoteEntries = data['data'];
       this.deadlineReached = data['data'][0].deadline_reached;
 
