@@ -17,9 +17,19 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-searchbar placeholder="Search..." (ionInput)="filterVisitors($event)" animated="true"></ion-searchbar>
+  <ion-item lines="none">
+    <ion-label>Select country</ion-label>
+    <ion-select [value]="selectedCountryIso" cancel-text="Reset" ok-text="Select" (ionCancel)="resetCountryFilter($event)" (ionChange)="filterVisitorsByCountry($event)">
+      <ion-select-option *ngFor="let c of countries" [value]="c.code">{{ c.value }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <div class="custom_spinner" *ngIf="loadingCountries">
+    <img src="assets/images/revision_o_white.svg" alt="spinner">
+  </div>
   <div>
-    <ng-template [ngIf]="visitorItems">
-      <h4>{{visitorItems.length}} people have signed up!</h4>
+    <ng-template [ngIf]="visitorItems && !loadingCountries">
+      <h3 *ngIf="!countrySelected">{{visitorItems.length}} people have signed up!</h3>
+      <h3 *ngIf="countrySelected">{{visitorsFromCountryCount}} people from {{selectedCountry}}!</h3>
       <ul>
         <li *ngFor="let visitor of filteredVisitorItems">
           <i class="fi fi-{{visitor.country_iso_3166_1 | lowercase}}"></i> {{visitor.name}} <span

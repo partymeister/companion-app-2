@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VisitorItem} from "../../models/visitor_item";
 import {VisitorService} from "../../services/visitor.service";
+import {CountryService} from '../../services/country.service';
 
 @Component({
   selector: 'app-visitor',
@@ -14,8 +15,15 @@ export class VisitorPage implements OnInit {
   public filteredVisitorItems: VisitorItem[];
   private url = '';
   loading = false;
-  constructor(private visitorService: VisitorService, activatedRoute: ActivatedRoute) {
+  countries: any[] = [];
+  selectedCountry = '';
+  countrySelected = false;
+  visitorsFromCountryCount = 0;
+  selectedCountryIso = '';
+  loadingCountries = false;
 
+  constructor(private countryService: CountryService, private visitorService: VisitorService, activatedRoute: ActivatedRoute) {
+    this.countries = countryService.getCountries();
     activatedRoute.queryParams.subscribe(params => {
       this.url = params.dataUrl;
       visitorService.getData(this.url)
@@ -45,5 +53,23 @@ export class VisitorPage implements OnInit {
           this.loading = false;
         }, 1000);
       });
+  }
+
+  filterVisitorsByCountry(event: any) {
+    this.selectedCountryIso = event.target.value;
+    this.countrySelected = true;
+    this.filteredVisitorItems = this.visitorItems.filter(visitor => visitor.country_iso_3166_1 === event.target.value);
+    this.visitorsFromCountryCount = this.filteredVisitorItems.length;
+    this.selectedCountry = this.countryService.findCountryByIso(event.target.value);
+  }
+
+  resetCountryFilter(event) {
+    this.loadingCountries = true;
+    this.selectedCountryIso = null;
+    setTimeout(() => {
+      this.countrySelected = false;
+      this.filteredVisitorItems = this.visitorItems;
+      this.loadingCountries = false;
+    },500);
   }
 }

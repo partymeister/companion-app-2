@@ -24,6 +24,19 @@ export class CountryService {
     return countries;
   }
 
+  findCountryByIso(iso: string) {
+    const keyArr: any[] = Object.keys(CountryToA2);
+    let countryName = '';
+    // loop through the object,
+    // pushing values to the return array
+    keyArr.forEach((key: string) => {
+      if (CountryToA2[key] === iso) {
+        countryName =  key;
+      }
+    });
+    return countryName;
+  }
+
   sortCountries(countries) {
     this.countries = countries;
     this.countries.sort((a, b) => {

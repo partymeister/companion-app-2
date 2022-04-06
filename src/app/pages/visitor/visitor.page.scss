@@ -9,3 +9,8 @@ ul {
 li {
   padding-bottom: 5px;
 }
+
+ion-item {
+  --background: none !important;
+  --background-activated: white !important;  //color: black;
+}
