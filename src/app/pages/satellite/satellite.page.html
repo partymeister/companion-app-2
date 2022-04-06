@@ -21,7 +21,9 @@
     <h1>Confirmed satellites</h1>
   </div>
   <ion-card *ngFor="let item of satelliteItem.satellites; let i = index" color="light">
-    <img [src]="item.image"/>
+    <div class="image_container">
+      <img class="image" [src]="item.image"/>
+    </div>
     <ion-card-header>
       <ion-card-subtitle>{{ item.country }}</ion-card-subtitle>
       <ion-card-title>{{item.title}}</ion-card-title>

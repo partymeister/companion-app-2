@@ -1,6 +1,16 @@
-a {
-  text-decoration: none !important;
-}
-ion-content > div {
-  margin: 24px 16px;
+:host {
+  a {
+    text-decoration: none !important;
+  }
+  ion-content > div {
+    margin: 24px 16px;
+  }
+  .image_container {
+    display: flex;
+    justify-content: center;
+    .image {
+      border-radius: 15px;
+      padding: 10px;
+    }
+  }
 }
