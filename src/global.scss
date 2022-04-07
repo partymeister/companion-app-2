@@ -39,6 +39,11 @@ ion-toast.toast-success {
   --background: #138788;
 }
 
+.alert-success {
+  background: #138788;
+  padding: 1rem;
+}
+
 ion-toast.toast-danger {
   --background: #eb445a;
   --color: black;

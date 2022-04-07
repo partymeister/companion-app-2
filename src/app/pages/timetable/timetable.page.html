@@ -21,6 +21,10 @@
       All times are displayed in your local time: {{getTimezone()}}
     </p>
 
+    <div *ngIf="timetableDays && getCurrentEvent()" class="alert-success">
+      It is {{ currentTime() }} and we are currently streaming <b>{{ getCurrentEvent().title }}</b>
+    </div>
+
     <div *ngFor="let day of timetableDays; let i = index">
 
       <h1>{{ day.day }}</h1>

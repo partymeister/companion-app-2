@@ -5,7 +5,7 @@ import {IntroGuard} from './guards/intro.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'NewsPage',
+    redirectTo: 'TimetablePage',
     pathMatch: 'full'
   },
   {
@@ -39,6 +39,11 @@ const routes: Routes = [
   {
     path: 'SponsorPage/:index',
     loadChildren: () => import('./pages/sponsor/sponsor.module').then( m => m.SponsorPageModule),
+    canActivate:[IntroGuard],
+  },
+  {
+    path: 'TimetablePage',
+    loadChildren: () => import('./pages/timetable/timetable.module').then( m => m.TimetablePageModule),
     canActivate:[IntroGuard],
   },
   {
