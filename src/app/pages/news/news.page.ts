@@ -12,7 +12,7 @@ import * as moment from 'moment';
 })
 export class NewsPage implements OnInit {
 
-  public newsItems: NewsItem[];
+  public newsItems: NewsItem[] = [];
   private url = '';
   loading = false;
   public moment;
