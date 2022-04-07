@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
 
   public countries: any[] = [];
   success = false;
+  error = false;
   private baseUrl: string;
 
   constructor(
