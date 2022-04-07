@@ -8,4 +8,5 @@ export interface TimetableEvent {
   category: string;
   title: string;
   backgroundColor: string;
+  current: boolean;
 }

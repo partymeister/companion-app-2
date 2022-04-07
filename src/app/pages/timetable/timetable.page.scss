@@ -3,7 +3,16 @@ ion-content > div {
 }
 table.events td {
   vertical-align: top;
+  padding: 8px 5px 8px 5px;
 }
 ion-badge {
   color: black;
+}
+table tr.highlight td {
+  background-color: #138788;
+}
+
+
+table.events {
+  width: 100%;
 }

@@ -37,15 +37,13 @@ export class TimetablePage implements OnInit {
   }
 
   currentTime() {
-
     const currentTime = moment();
-
     return currentTime.format('MMMM DD, HH:mm');
   }
 
   getCurrentEvent() {
 
-    // const currentTime = new Date('2022-04-15T16:01:00');
+    // const currentTime = new Date('2022-04-17T20:01:00');
     const currentTime = new Date();
 
     const currentEvents = [];
@@ -61,7 +59,33 @@ export class TimetablePage implements OnInit {
     });
 
     if (currentEvents.length > 0) {
-      return currentEvents.slice(-1).pop();
+      // Find all events with the same time as the last one
+
+      const events = [];
+
+      const lastEvent = currentEvents.pop();
+      events.push(lastEvent);
+
+      for (const e of currentEvents) {
+        if (e.start === lastEvent.start) {
+          events.push(e);
+        }
+      }
+
+      const titles = [];
+      for (const ee of events.reverse()) {
+        titles.push(ee.title);
+      }
+
+      this.timetableDays.forEach((day2, dayIndex2) => {
+        day2.events.forEach((event2, eventIndex2) => {
+          if (event2.start === lastEvent.start) {
+            event2.current = true;
+          }
+        });
+      });
+
+      return titles.join(', ');
     }
     return false;
   }

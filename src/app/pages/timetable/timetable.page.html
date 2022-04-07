@@ -22,7 +22,7 @@
     </p>
 
     <div *ngIf="timetableDays && getCurrentEvent()" class="alert-success">
-      It is {{ currentTime() }} and we are currently streaming <b>{{ getCurrentEvent().title }}</b>
+      It is {{ currentTime() }} and we are currently streaming <b>{{ getCurrentEvent() }}</b>
     </div>
 
     <div *ngFor="let day of timetableDays; let i = index">
@@ -30,7 +30,7 @@
       <h1>{{ day.day }}</h1>
 
       <table class="events">
-        <tr *ngFor="let event of day.events; let eventIndex = index">
+        <tr *ngFor="let event of day.events; let eventIndex = index" [class]="event.current ? 'highlight' : ''">
           <td width="50"><span
             *ngIf="eventIndex === 0 || event.start !== day.events[eventIndex-1].start">{{event.start | date: 'HH:mm'}}</span>
           </td>

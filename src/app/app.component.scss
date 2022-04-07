@@ -149,10 +149,6 @@ ion-item {
   font-weight: 700;
 }
 
-ion-menu, ion-content {
-  --background: url('../assets/images/menu-bg-2022.png') !important;
-  //background-image:
-}
-
-#background-content {
+ion-content {
+  --background: url('../assets/images/menu-bg-2022.png')  no-repeat center center / cover !important;
 }
