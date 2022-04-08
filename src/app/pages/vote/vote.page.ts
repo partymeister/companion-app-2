@@ -60,6 +60,7 @@ export class VotePage implements OnInit {
   }
 
   getVotingEntries() {
+    this.competitions = {};
     this.entryItems.filter(element => {
 
       this.deadlineReached = element.deadline_reached;
