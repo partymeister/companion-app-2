@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'info.esmaili.partymeistercompanionapp.revision',
+  appId: 'info.esmaili.partymeistercompanionapp.revision2023', // ios 'info.esmaili.partymeistercompanionapp.revision2016'
   appName: 'Revision 2023',
   webDir: 'www',
   bundledWebRuntime: false,
