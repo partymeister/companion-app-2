@@ -77,6 +77,16 @@ const routes: Routes = [
     canActivate:[IntroGuard],
   },
   {
+    path: 'TicketPage/:index',
+    loadChildren: () => import('./pages/ticket/ticket.module').then( m => m.TicketPageModule),
+    canActivate:[IntroGuard],
+  },
+  {
+    path: 'ticket-modal',
+    loadChildren: () => import('./pages/ticket-modal/ticket-modal.module').then( m => m.TicketModalPageModule),
+    canActivate:[IntroGuard],
+  },
+  {
     path: 'LiveVotePage/:index',
     loadChildren: () => import('./pages/live-vote/live-vote.module').then( m => m.LiveVotePageModule),
     canActivate:[IntroGuard],

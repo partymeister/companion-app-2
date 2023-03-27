@@ -22,7 +22,7 @@
     </p>
 
     <div *ngIf="timetableDays && getCurrentEvent()" class="alert-success">
-      It is {{ currentTime() }} and we are currently streaming <b>{{ getCurrentEvent() }}</b>
+      It is {{ currentTime() }} and we are currently showing <b>{{ getCurrentEvent() }}</b>
     </div>
 
     <div *ngFor="let day of timetableDays; let i = index">

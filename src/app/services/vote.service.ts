@@ -55,7 +55,7 @@ export class VoteService {
     return this.http.post<VoteEntryItem>(sprintf(url + '%s/vote', apiToken, entry.id), {
       points: points,
       comment: comment === null ? '' : comment,
-      favourite: entry.favourite,
+      favourite: entry.favourite || entry.vote.special_vote,
       vote_category_id: entry.vote_category_id
     }).subscribe(result => {
       // toast me

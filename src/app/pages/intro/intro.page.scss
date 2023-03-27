@@ -1,5 +1,5 @@
 ion-slides {
-  background: url('../../../assets/images/intro-bg-2022.png');
+  background: url('../../../assets/images/intro-bg-2023.png');
   background-size: cover;
   height: 100%;
   width: 100%;
@@ -44,4 +44,10 @@ p {
 
 p b {
   color: var(--ion-text-color, #000000);
+}
+ion-img.logo {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 45%;
+  margin-bottom: 3em;
 }

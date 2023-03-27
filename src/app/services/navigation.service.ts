@@ -14,6 +14,6 @@ export class NavigationService {
   }
 
   getNavigation() {
-    return this.http.get<NavigationItem>('https://2022.revision-party.net/app/navigation.json');
+    return this.http.get<NavigationItem>('https://2023.revision-party.net/app/navigation.json');
   }
 }

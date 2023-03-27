@@ -52,6 +52,8 @@ export class LiveVotePage implements OnInit, OnDestroy {
         return;
       }
 
+      let restoreFocusForId = 0;
+
       const liveVoteEntries = data['data'];
       this.deadlineReached = data['data'][0].deadline_reached;
 
@@ -61,8 +63,16 @@ export class LiveVotePage implements OnInit, OnDestroy {
           if (oldEntry.is_dirty && oldEntry.id === newEntry.id) {
             newEntry.vote.comment = oldEntry.vote.comment;
             newEntry.is_dirty = true;
+            restoreFocusForId = newEntry.id;
           }
         }
+      }
+
+      if (restoreFocusForId > 0) {
+        setTimeout(() => {
+          const input = document.getElementById('entry_'+restoreFocusForId).getElementsByTagName('input')[0];
+          input.focus();
+        }, 50);
       }
 
       this.liveVoteEntries = liveVoteEntries;

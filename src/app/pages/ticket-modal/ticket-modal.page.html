@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        Close
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Ticket Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>{{ticket.type}}</ion-label>
+    </ion-list-header>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        Order information
+      </ion-label>
+      <ion-label slot="end">
+        {{ticket.order_number}}<br>
+        {{ticket.first_name}} {{ticket.last_name}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label slot="start">
+        Code
+      </ion-label>
+      <ion-label slot="end">
+        {{ticket.code}}
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <qrcode [elementType]="'img'" [qrdata]="ticket.code" [width]="512" [errorCorrectionLevel]="'M'"></qrcode>
+    </ion-item>
+  </ion-list>
+
+  <div>
+    Show this at the entrance so we can scan your ticket directly from the app!
+  </div>
+</ion-content>
+<app-connectivity></app-connectivity>

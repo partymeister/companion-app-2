@@ -43,7 +43,7 @@
 
           <ion-item lines="none">
             <p item-start></p>
-            <ion-input placeholder="Leave comment" type="text" [disabled]="deadlineReached" [(ngModel)]="entry.vote.comment" (ngModelChange)="markDirty($event, entry)"></ion-input>
+            <ion-input [id]="'entry_'+entry.id" placeholder="Leave comment" type="text" [disabled]="deadlineReached" [(ngModel)]="entry.vote.comment" (ngModelChange)="markDirty($event, entry)"></ion-input>
             <ion-button slot="end" (click)="onCommentSend(entry)">Send</ion-button>
           </ion-item>
           <ion-button *ngIf="!entry.vote.special_vote" (click)="onFavouriteSend(entry, true)" expand="block">&hearts; My party favourite &hearts;</ion-button>

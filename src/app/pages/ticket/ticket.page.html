@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button color="danger"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My tickets</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <h5 *ngIf="ticketItems.length === 0">You haven't scanned any tickets yet.</h5>
+  </div>
+  <ion-list inset="true">
+
+    <ion-item-sliding *ngFor="let ticket of ticketItems">
+      <ion-item (click)="presentDetailModal(ticket)">
+        <ion-thumbnail slot="start">
+          <qrcode [elementType]="'img'" [qrdata]="ticket.code" [width]="512" [errorCorrectionLevel]="'M'"></qrcode>
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">
+          <h2 [innerHTML]="ticket.type"></h2>
+          <p>
+            {{ticket.order_number}}<br>
+            {{ticket.first_name}} {{ticket.last_name}}
+          </p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="removeTicket(ticket)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <div>
+    <p class="notice" *ngIf="ticketItems.length > 0" padding>Swipe left on a ticket to remove it.</p>
+  </div>
+
+
+<!--  <ion-card *ngFor="let ticket of ticketItems">-->
+<!--    <ion-card-content>-->
+<!--      <ion-card-title>-->
+<!--        {{ticket.type}}-->
+<!--      </ion-card-title>-->
+<!--      <p>-->
+<!--        Order number: {{ticket.order_number}}-->
+<!--      </p>-->
+<!--      <hr>-->
+<!--      <ion-button expand="block" (click)="presentDetailModal(ticket)">Details</ion-button>-->
+<!--    </ion-card-content>-->
+
+<!--  </ion-card>-->
+
+  <div>
+    <h1>Add ticket</h1>
+  </div>
+  <form [formGroup]="ticketForm" (ngSubmit)="submitTicket()">
+    <ion-item lines="none">
+      <ion-label>Last name</ion-label>
+      <ion-input type="text" formControlName="last_name" autocapitalize=none></ion-input>
+    </ion-item>
+    <div class="ticket_code">
+      <ion-item lines="none">
+        <ion-label>Ticket code</ion-label>
+        <ion-input type="text" formControlName="code"></ion-input>
+        <ion-icon *ngIf="success" name="checkmark-circle-outline" color="success"></ion-icon>
+      </ion-item>
+      <ion-button type="button" expand="block" (click)="openCamera($event); $event.stopPropagation()" color="light">scan ticket<ion-icon name="scan-circle-outline"></ion-icon></ion-button>
+    </div>
+    <ion-button expand="full" type="submit" [disabled]="!ticketForm.valid">Save ticket</ion-button>
+  </form>
+</ion-content>
+<app-connectivity></app-connectivity>
