@@ -24,7 +24,7 @@ export class NewsPage implements OnInit {
     activatedRoute.queryParams.subscribe(params => {
 
       if (params.dataUrl === undefined) {
-        this.url = 'https://2023.revision-party.net/blog/index.json';
+        this.url = 'https://2024.revision-party.net/blog/index.json';
       } else {
         this.url = params.dataUrl;
       }

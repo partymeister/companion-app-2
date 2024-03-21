@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { VotePageRoutingModule } from './vote-routing.module';
 
 import { VotePage } from './vote.page';
-import { IonicRatingComponentModule } from 'ionic-rating-component';
 import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
 
 @NgModule({
@@ -16,7 +15,6 @@ import {ConnectivityModule} from "../../modules/connectivity/connectivity.module
         FormsModule,
         IonicModule,
         VotePageRoutingModule,
-        IonicRatingComponentModule,
         ConnectivityModule
     ],
   declarations: [VotePage]

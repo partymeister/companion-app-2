@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationService} from "./services/navigation.service";
-import {NavigationItem} from "./models/navigation_item";
-import {MenuController, Platform} from "@ionic/angular";
-import {AuthenticationService} from "./services/authentication.service";
+import {NavigationService} from './services/navigation.service';
+import {NavigationItem} from './models/navigation_item';
+import {MenuController, Platform} from '@ionic/angular';
+import {AuthenticationService} from './services/authentication.service';
 import {SplashScreen} from '@capacitor/splash-screen';
 import OneSignal from 'onesignal-cordova-plugin';
 
