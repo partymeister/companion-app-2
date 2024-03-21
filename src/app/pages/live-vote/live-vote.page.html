@@ -30,16 +30,14 @@
           <ion-card-subtitle>
             {{entry.author}}
           </ion-card-subtitle>
-          <ionic-rating-component #rating
-                                  activeIcon = "star"
-                                  defaultIcon = "star-outline"
-                                  activeColor = "#FFA500"
-                                  defaultColor = "#FFA500"
-                                  readonly="{{deadlineReached}}"
-                                  [rating]="entry.vote.points === 0 ? 0.1 : entry.vote.points"
-                                  fontSize = "32px"
-                                  (ratingChanged)="onModelChange($event, entry)">
-          </ionic-rating-component>
+          <ion-rating-stars
+            [color]="'darkgrey'"
+            [filledColor]="'orange'"
+            [disabled]="deadlineReached"
+            [rating]="entry.rating"
+            [size] = "32"
+            (ratingChange)="onModelChange($event, entry)">
+          </ion-rating-stars>
 
           <ion-item lines="none">
             <p item-start></p>

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { IonRatingStarsModule } from 'ion-rating-stars';
+
 
 import { LiveVotePage } from './live-vote.page';
 
@@ -11,7 +13,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [IonRatingStarsModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class LiveVotePageRoutingModule {}
