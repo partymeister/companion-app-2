@@ -54,12 +54,13 @@
           {{entry.author}}
         </ion-card-subtitle>
         <ion-rating-stars
-                                [color]="'darkgrey'"
-                                [filledColor]="'orange'"
-                                [disabled]="deadlineReached"
-                                [rating]="entry.rating"
-                                [size] = "32"
-                                (ratingChange)="onModelChange($event, entry)">
+          style="text-align: center"
+          [color]="'darkgray'"
+          [filledColor]="'#fa8000'"
+          [disabled]="deadlineReached"
+          [rating]="entry.rating"
+          [size] = "56"
+          (ratingChange)="onModelChange($event, entry)">
         </ion-rating-stars>
 
         <ion-item lines="none">

@@ -8,6 +8,7 @@ import { LiveVotePageRoutingModule } from './live-vote-routing.module';
 
 import { LiveVotePage } from './live-vote.page';
 import {ConnectivityModule} from "../../modules/connectivity/connectivity.module";
+import {IonRatingStarsModule} from "ion-rating-stars";
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import {ConnectivityModule} from "../../modules/connectivity/connectivity.module
         FormsModule,
         IonicModule,
         LiveVotePageRoutingModule,
-        ConnectivityModule
+        ConnectivityModule,
+        IonRatingStarsModule
     ],
   declarations: [LiveVotePage]
 })

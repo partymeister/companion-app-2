@@ -53,6 +53,7 @@ export class TimetablePage implements OnInit {
         const eventTime = new Date(event['start']);
 
         if (event['category'].toLowerCase() !== 'deadline' && eventTime < currentTime) {
+          console.log(eventTime, currentTime, event);
           currentEvents.push(event);
         }
       });
